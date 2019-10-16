@@ -17,10 +17,9 @@ import javafx.stage.Stage;
 
 public class View {
 	private GridPane view;
-	private File SelectedFile;
 	private Button ChooseXML;
 	private Button LoadXML;
-	File selectedFile = new File("");
+	
 	
 	public View() {
 		createAndConfigurePane();
@@ -42,22 +41,20 @@ public class View {
 	
 	public void createAndLayoutControls() {
 
-		LoadXML= new Button("Parse XML");
+		ChooseXML= new Button("Choose XML file");
 	 	Label lblSource = new Label("");
-	 	HBox hboxSource = new HBox(LoadXML,lblSource );
+	 	HBox hboxSource = new HBox(ChooseXML,lblSource );
 	 	
 		
-	 	ChooseXML = new Button("Choose XML file");
-	 	HBox hbox = new HBox(ChooseXML);
+	 	LoadXML = new Button("Parse XML");
+	 	HBox hbox = new HBox(LoadXML);
 		hbox.setAlignment(Pos.CENTER); 
 		
 		TextArea txtR = new TextArea();
-		txtR.setText(selectedFile.getName());
-		GridPane grdPane = new GridPane();
 		
 		view.setPadding(new Insets(10,10,10,10));
-		view.setMinSize(10, 60);
-		view.setHgap(60);
+		view.setMinSize(10, 30);
+		view.setHgap(20);
 		view.setVgap(90);
 		view.setAlignment(Pos.CENTER);
 		
@@ -66,13 +63,16 @@ public class View {
 		view.addRow(2, txtR);
 	}
 	
-
-	public File SelectedFile(){
-		return SelectedFile;
-	}
+	
+	
 
 	public void addFileListener(EventHandler<ActionEvent> listener){
+		ChooseXML.setOnAction(listener);
+	}
+	
+	public void addFileOpenListener(EventHandler<ActionEvent> listener) {
 		LoadXML.setOnAction(listener);
+		
 	}
 
 
@@ -110,7 +110,6 @@ public class View {
 		
 	// 	TextArea txtR = new TextArea();
 	// 	txtR.setText(selectedFile.getName());
-	// 	GridPane grdPane = new GridPane();
 		
 	// 	grdPane.setPadding(new Insets(10,10,10,10));
 	// 	grdPane.setMinSize(10, 60);
