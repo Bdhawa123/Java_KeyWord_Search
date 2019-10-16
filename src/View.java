@@ -19,7 +19,12 @@ public class View {
 	private GridPane view;
 	private Button ChooseXML;
 	private Button LoadXML;
+	private TextArea txtR;
+	private Label lblSource;
 	
+	public Label getLabelSource() {
+		return lblSource;
+	}
 	
 	public View() {
 		createAndConfigurePane();
@@ -30,19 +35,26 @@ public class View {
 		return view;
 	}
 	
+	public TextArea getTextArea() {
+		return txtR;
+	}
+	
+	
+	
 	public void createAndConfigurePane() {
 		view = new GridPane();
 		view.setPadding(new Insets(10,10,10,10));
 		view.setMinSize(10,60);
-		view.setHgap(60);
-		view.setVgap(90);
+		view.setHgap(20);
+		view.setVgap(10);
 		view.setAlignment(Pos.CENTER);			
 	}
 	
 	public void createAndLayoutControls() {
 
 		ChooseXML= new Button("Choose XML file");
-	 	Label lblSource = new Label("");
+	 	lblSource = new Label("");
+	 	lblSource.setAlignment(Pos.CENTER);
 	 	HBox hboxSource = new HBox(ChooseXML,lblSource );
 	 	
 		
@@ -50,17 +62,15 @@ public class View {
 	 	HBox hbox = new HBox(LoadXML);
 		hbox.setAlignment(Pos.CENTER); 
 		
-		TextArea txtR = new TextArea();
+		txtR = new TextArea();
+	
 		
-		view.setPadding(new Insets(10,10,10,10));
-		view.setMinSize(10, 30);
-		view.setHgap(20);
-		view.setVgap(90);
-		view.setAlignment(Pos.CENTER);
+		
 		
 		view.addRow(0,hboxSource);
-		view.addRow(1,hbox);
-		view.addRow(2, txtR);
+		view.addRow(1, lblSource);
+		view.addRow(2,hbox);
+		view.addRow(3, txtR);
 	}
 	
 	

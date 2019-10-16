@@ -19,7 +19,8 @@ public class Controller {
         controllerview.addFileListener(e->{
         	FileChooser file = new FileChooser();
         	mod.selectedFile = file.showOpenDialog(set);
-        	System.out.println("This is not working");
+        
+        	view.getLabelSource().setText(mod.selectedFile.getName());
         });
         
         controllerview.addFileOpenListener(e->{
@@ -27,6 +28,13 @@ public class Controller {
         	try {
 				reader = new BufferedReader(new FileReader(mod.selectedFile.getPath()));
 				String line = reader.readLine();
+				
+				while(line!=null) {
+					view.getTextArea().setText(view.getTextArea().getText()+line+"\n");
+					line = reader.readLine();
+				}
+				
+				reader.close();
 				//read file
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
