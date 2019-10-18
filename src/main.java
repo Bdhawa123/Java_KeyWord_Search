@@ -9,7 +9,7 @@ public class main extends Application {
 			//set gui launch 
 			launch();
 		}
-
+		
 		@Override
 		public void start(Stage stage)throws Exception{
 			View view = new View();	
