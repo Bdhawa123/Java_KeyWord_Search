@@ -3,6 +3,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.SAXException;
+
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -20,7 +26,25 @@ public class Controller {
         	FileChooser file = new FileChooser();
         	mod.selectedFile = file.showOpenDialog(set);
         
-        	view.getLabelSource().setText(mod.selectedFile.getName());
+			view.getLabelSource().setText(mod.selectedFile.getName());
+			SAXParserFactory factory = SAXParserFactory.newInstance();
+			SAXParser saxParser;
+			UserHandler userhandler = new UserHandler();
+			try {
+				saxParser = factory.newSAXParser();
+				saxParser.parse(mod.selectedFile,userhandler);
+			} catch (ParserConfigurationException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SAXException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			
         });
         
         controllerview.addFileOpenListener(e->{
@@ -41,7 +65,9 @@ public class Controller {
 				e1.printStackTrace();
 			}
         		
-        });
+		});
+		
+		
     
         
     }
