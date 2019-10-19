@@ -98,17 +98,20 @@ public class UserHandler extends DefaultHandler{
     		break;
     	case "year":
     		System.out.println("Year:"+new String(ch,start,length));
-    		store.getYear().add(getString);
+    		//store.getYear().add(getString);
+    		store.add_Year(getString);
     		name="";
     		break;
     	case "title":
     		System.out.println("Title :"+new String(ch,start,length));
-    		store.getTitle().add(getString);
+    		store.add_Title(getString);
+    		//store.getTitle().add(getString);
     		name="";
     		break;
     	case "rating":
     		System.out.println("Rating :"+new String(ch,start,length));
-    		store.getRating().add(getString);
+    		store.add_Rating(getString);
+    		//store.getRating().add(getString);
     		name="";
     		break;
     	case "director":
@@ -123,7 +126,9 @@ public class UserHandler extends DefaultHandler{
     		break;
     	case "country":
     		System.out.println("Country:"+new String(ch,start,length));
-    		store.getCountry().add(getString);
+    		
+    		store.add_Country(getString);
+    		//store.getCountry().add(getString);
     		name="";
     		break;
     	case "language":
@@ -131,7 +136,7 @@ public class UserHandler extends DefaultHandler{
     		break;
     	case "company":
     		System.out.println("Company:"+new String(ch,start,length));
-    		store.getCompany().add(getString);
+    		store.add_Company(getString);
     		name="";
     		break;
     	case "cast":
@@ -139,23 +144,26 @@ public class UserHandler extends DefaultHandler{
     		break;
     	case "kw":
     		System.out.println("Keywords:"+new String(ch,start,length));
-    		store.getKeyword().add(getString);
+    		store.add_Keyword(getString);
     		name="";
     		break; 
     		
     	case "name":
     		if(director) {
     			System.out.println("Director:"+new String(ch,start,length));
-    			store.getDirectorName().add(getString);
+    			store.add_Director_Name(getString);
+    			//store.getDirectorName().add(getString);
     			
     		}else
 			if(writer) {
 				System.out.println("Writer:"+new String(ch,start,length));
-				store.getWriterName().add(getString);
+				store.add_WriterName(getString);
+				//store.getWriterName().add(getString);
 			}else
     		if(cast) {
     			System.out.println("Cast:"+new String(ch,start,length));
-    			store.getCastName().add(getString);
+    			store.add_CastName(getString);
+    			//store.getCastName().add(getString);
     		}
     		
     		name="";
@@ -165,22 +173,28 @@ public class UserHandler extends DefaultHandler{
     	case "role":
     		if (director) {
     			System.out.println("Role:"+new String(ch,start,length));
-    			store.getDirectorRole().add(getString);
+    			store.add_Director_Role(getString);
+    			//store.getDirectorRole().add(getString);
     		}else
 			if(writer) {
 				System.out.println("Writer role:"+new String(ch,start,length));
-				store.getWriterRole().add(getString);
+				store.add_WriterName(getString);
+				//store.getWriterRole().add(getString);
 			}else
     		if(cast) {
     			System.out.println("Cast role:"+new String(ch,start,length));
-    			store.getCastRole().add(getString);
+    			store.add_CastRole(getString);
+    			
     		}
     		name="";
     		break;
     	case "item":
     		if(genres) {
     			System.out.println("Item:"+new String(ch,start,length));
-    			store.getGenre().add(getString);
+    			//store.getGenre().add(getString);
+    			store.add_Genre(getString);
+    			//store.setGenre(store.getGenre().add(getString));
+    			
     		}
     		name="";
     		break;

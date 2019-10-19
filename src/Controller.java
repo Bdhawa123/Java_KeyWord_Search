@@ -54,7 +54,7 @@ public class Controller {
 				String line = reader.readLine();
 				
 				while(line!=null) {
-					view.getTextArea().setText(view.getTextArea().getText()+line+"\n");
+					view.getTextArea().setText("The next door neighbors are weird"+"\n");
 					line = reader.readLine();
 				}
 				

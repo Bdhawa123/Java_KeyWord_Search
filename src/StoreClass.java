@@ -18,31 +18,85 @@ public class StoreClass {
 	private List<String> WriterName;
 	private List<String> WriterRole;
 	private List<String> Genre;
+	
+public StoreClass() {
+		
+		Title= new ArrayList<String>();
+		Year= new ArrayList<String>();
+		Rating= new ArrayList<String>();
+		Country= new ArrayList<String>();
+		Language= new ArrayList<String>();
+		Company= new ArrayList<String>();
+		Keyword= new ArrayList<String>(); 
+		DirectorName= new ArrayList<String>();
+		DirectorRole = new ArrayList<String>();
+		CastName = new ArrayList<String>();
+		CastRole = new ArrayList<String>();
+		Genre = new ArrayList<String>();
+		WriterName = new ArrayList<String>();
+		WriterRole = new ArrayList<String>();
+		
+	}
+	
+	
+	public void add_Title(String title) {
+		Title.add(title);
+	}
+	public void add_Year(String year) {
+		Year.add(year);
+	}
+	public void add_Rating(String rating) {
+		Rating.add(rating);
+	}
+	public void add_Country(String country) {
+		Country.add(country);
+	}
+	public void add_Language(String language) {
+		Language.add(language);
+	}
+	
+	public void add_Company(String company) {
+		Company.add(company);
+	}
+	public void add_Keyword(String keyword) {
+		Keyword.add(keyword);
+	}
+	public void add_Director_Name(String director_name) {
+		DirectorName.add(director_name); 
+	}
+	public void add_Director_Role(String director_role) {
+		DirectorRole.add(director_role); 
+	}
+	public void add_CastName(String name) {
+		CastName.add(name); 
+	}
+	
+	public void add_CastRole(String role) {
+		CastRole.add(role);
+	}
+	
+	public void add_WriterName(String name) {
+		WriterName.add(name);
+	}
+	public void add_WriterRole(String role) {
+		WriterName.add(role);
+	}
+	
+	public void add_Genre(String role) {
+		Genre.add(role);
+	}
+	
 	public List<String> getGenre() {
 		return Genre;
-	}
-
-	public void setGenre(List<String> genre) {
-		Genre = genre;
 	}
 
 	public Map<Integer, Map<String, List<String>>> getMovieset() {
 		return Movieset;
 	}
-
-	public void setMovieset(Map<Integer, Map<String, List<String>>> movieset) {
-		Movieset = movieset;
-	}
 	
 
 	Map<String, List<String>> Movie = new HashMap<String, List<String>>();
 	Map<Integer,Map<String,List<String>>> Movieset= new HashMap<Integer,Map<String,List<String>>>();
-	
-//	
-//	private Map<String, List<String>> Director;
-//	private Map<String, List<String>> Genres;
-//	private Map<String, List<String>> Writer;
-//	private Map<String, List<String>> Cast;	
 	
 	public boolean search(String contains) {
 		boolean return_val = false;
@@ -70,7 +124,7 @@ public class StoreClass {
 	public void get_keywordreturn(Map<Integer,Map<String,List<String>>> Moviesreturn) {
 		//int i = 0;
 		for(Map<String, List<String>> mov:Movieset.values()) {
-			i++;
+			//i++;
 			List<String> title = mov.get("Title");
 			List<String> year = mov.get("Year");
 			List<String> Rating = mov.get("Rating");
@@ -163,127 +217,93 @@ public class StoreClass {
 		Movie.put("WriterName",WriterName);
 		Movie.put("WriterRole",WriterRole);
 		Movie.put("Genre",Genre);
+		
+		Title.clear();
+		Year.clear();
+		Rating.clear();
+		Country.clear();
+		Language.clear();
+		Company.clear();
+		Keyword.clear();
+		DirectorName.clear();
+		DirectorRole.clear();
+		CastName.clear();
+		CastRole.clear();
+		WriterName.clear();
+		WriterRole.clear();
+		Genre.clear();
 	}
 	
 	public void AddIntoMovie(Integer movie) {
 		Movieset.put(movie, Movie);
+		Movie.clear();
 	}
 	
 
-	public StoreClass() {
-		
-		Title= new ArrayList<String>();
-		Year= new ArrayList<String>();
-		Rating= new ArrayList<String>();
-		Country= new ArrayList<String>();
-		Language= new ArrayList<String>();
-		Company= new ArrayList<String>();
-		Keyword= new ArrayList<String>(); 
-		DirectorName= new ArrayList<String>();
-		DirectorRole = new ArrayList<String>();
-		CastName = new ArrayList<String>();
-		CastRole = new ArrayList<String>();
-		
-	}
+	
 	
 	
 	
 	public Map<String, List<String>> getMovie() {
 		return Movie;
 	}
-	public void setMovie(Map<String, List<String>> movie) {
-		Movie = movie;
-	}
+
 	public List<String> getTitle() {
 		return Title;
 	}
-	public void setTitle(List<String> title) {
-		Title = title;
-	}
+	
 	public List<String> getYear() {
 		return Year;
 	}
-	public void setYear(List<String> year) {
-		Year = year;
-	}
+	
 	public List<String> getRating() {
 		return Rating;
 	}
-	public void setRating(List<String> rating) {
-		Rating = rating;
-	}
+	
 	public List<String> getCountry() {
 		return Country;
 	}
-	public void setCountry(List<String> country) {
-		Country = country;
-	}
+	
 	public List<String> getLanguage() {
 		return Language;
 	}
-	public void setLanguage(List<String> language) {
-		Language = language;
-	}
+	
 	public List<String> getCompany() {
 		return Company;
 	}
-	public void setCompany(List<String> company) {
-		Company = company;
-	}
+	
 	public List<String> getKeyword() {
 		return Keyword;
 	}
-	public void setKeyword(List<String> keyword) {
-		Keyword = keyword;
-	}
+	
 		
 	public List<String> getDirectorName() {
 		return DirectorName;
 	}
 
-	public void setDirectorName(List<String> directorName) {
-		DirectorName = directorName;
-	}
+	
 	
 	public List<String> getDirectorRole() {
 		return DirectorRole;
-	}
-
-	public void setDirectorRole(List<String> directorRole) {
-		DirectorRole = directorRole;
 	}
 
 	public List<String> getCastName() {
 		return CastName;
 	}
 
-	public void setCastName(List<String> castName) {
-		CastName = castName;
-	}
-
 	public List<String> getCastRole() {
 		return CastRole;
-	}
-
-	public void setCastRole(List<String> castRole) {
-		CastRole = castRole;
 	}
 	
 	public List<String> getWriterName() {
 		return WriterName;
 	}
 
-	public void setWriterName(List<String> writerName) {
-		WriterName = writerName;
-	}
-
 	public List<String> getWriterRole() {
 		return WriterRole;
 	}
 
-	public void setWriterRole(List<String> writerRole) {
-		WriterRole = writerRole;
-	}
+	
 	
 	
 		
