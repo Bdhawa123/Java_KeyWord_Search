@@ -16,10 +16,16 @@ public class UserHandler extends DefaultHandler{
 	boolean company = false;
 	boolean cast = false;
 	boolean keyword = false;
+	StoreClass store ;
 	
 	private String name = "";
-	
 	private int moviecount = 0;
+	
+	public UserHandler() {
+		store = new StoreClass();
+		
+	}
+	
     @Override
 	   public void startElement( String uri, String localName, String qName, Attributes attributes)
 	      throws SAXException {
@@ -83,21 +89,26 @@ public class UserHandler extends DefaultHandler{
     
     @Override
 	   public void characters(char ch[], int start, int length) throws SAXException {
+    	String getString = new String(ch,start,length);
     	switch(name){
+    	
     	case "movie":
     		System.out.println("Movie No "+moviecount);
     		name="";
     		break;
     	case "year":
     		System.out.println("Year:"+new String(ch,start,length));
+    		store.getYear().add(getString);
     		name="";
     		break;
     	case "title":
     		System.out.println("Title :"+new String(ch,start,length));
+    		store.getTitle().add(getString);
     		name="";
     		break;
     	case "rating":
     		System.out.println("Rating :"+new String(ch,start,length));
+    		store.getRating().add(getString);
     		name="";
     		break;
     	case "director":
@@ -112,6 +123,7 @@ public class UserHandler extends DefaultHandler{
     		break;
     	case "country":
     		System.out.println("Country:"+new String(ch,start,length));
+    		store.getCountry().add(getString);
     		name="";
     		break;
     	case "language":
@@ -119,6 +131,7 @@ public class UserHandler extends DefaultHandler{
     		break;
     	case "company":
     		System.out.println("Company:"+new String(ch,start,length));
+    		store.getCompany().add(getString);
     		name="";
     		break;
     	case "cast":
@@ -126,38 +139,48 @@ public class UserHandler extends DefaultHandler{
     		break;
     	case "kw":
     		System.out.println("Keywords:"+new String(ch,start,length));
+    		store.getKeyword().add(getString);
     		name="";
     		break; 
     		
     	case "name":
     		if(director) {
     			System.out.println("Director:"+new String(ch,start,length));
+    			store.getDirectorName().add(getString);
+    			
     		}else
 			if(writer) {
 				System.out.println("Writer:"+new String(ch,start,length));
+				store.getWriterName().add(getString);
 			}else
     		if(cast) {
     			System.out.println("Cast:"+new String(ch,start,length));
+    			store.getCastName().add(getString);
     		}
     		
     		name="";
     		break;
     		
+    		
     	case "role":
     		if (director) {
     			System.out.println("Role:"+new String(ch,start,length));
+    			store.getDirectorRole().add(getString);
     		}else
 			if(writer) {
 				System.out.println("Writer role:"+new String(ch,start,length));
+				store.getWriterRole().add(getString);
 			}else
     		if(cast) {
     			System.out.println("Cast role:"+new String(ch,start,length));
+    			store.getCastRole().add(getString);
     		}
     		name="";
     		break;
     	case "item":
     		if(genres) {
-    		System.out.println("Item:"+new String(ch,start,length));
+    			System.out.println("Item:"+new String(ch,start,length));
+    			store.getGenre().add(getString);
     		}
     		name="";
     		break;
@@ -174,6 +197,8 @@ public class UserHandler extends DefaultHandler{
     	switch(qName){
     	
 	    	case "movie":
+	    		store.fillAddMovie();
+	    		store.AddIntoMovie(moviecount);
 	    		
 	    		break;		    		
 	    	case "year":
