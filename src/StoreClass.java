@@ -33,6 +33,7 @@ public class StoreClass {
 	public void setMovieset(Map<Integer, Map<String, List<String>>> movieset) {
 		Movieset = movieset;
 	}
+	
 
 	Map<String, List<String>> Movie = new HashMap<String, List<String>>();
 	Map<Integer,Map<String,List<String>>> Movieset= new HashMap<Integer,Map<String,List<String>>>();
@@ -42,6 +43,110 @@ public class StoreClass {
 //	private Map<String, List<String>> Genres;
 //	private Map<String, List<String>> Writer;
 //	private Map<String, List<String>> Cast;	
+	
+	public boolean search(String contains) {
+		boolean return_val = false;
+		return return_val;
+	}
+	
+	
+	public Map<Integer,Map<String,List<String>>> find(String keyword) {
+		int i = 0;
+		Map<Integer,Map<String,List<String>>> Moviesetreturn=new HashMap<Integer,Map<String,List<String>>>();;
+		for(Map<String, List<String>> mov:Movieset.values()) {
+			i++;
+			for(List<String> iterator: mov.values()) {
+				for(String s:iterator) {
+					if (s.toLowerCase().contains(keyword.toLowerCase())||s.equalsIgnoreCase(keyword)) {
+						Moviesetreturn.put(i, mov);
+					}
+				}
+			}
+			
+		}
+		return Moviesetreturn;
+	}
+	
+	public void get_keywordreturn(Map<Integer,Map<String,List<String>>> Moviesreturn) {
+		//int i = 0;
+		for(Map<String, List<String>> mov:Movieset.values()) {
+			i++;
+			List<String> title = mov.get("Title");
+			List<String> year = mov.get("Year");
+			List<String> Rating = mov.get("Rating");
+			List<String> Country = mov.get("Country");
+			List<String> Company = mov.get("Company");
+			List<String> Keywords = mov.get("Keywords");
+			List<String> Language = mov.get("Language");
+			List<String> Director_Name = mov.get("DirectorName");
+			List<String> Direcror_Role = mov.get("DirectorRole");
+			List<String> Cast_Name = mov.get("CastName");
+			List<String> Cast_Role = mov.get("CastRole");
+			List<String> Writer_Name = mov.get("WriterName");
+			List<String> Writer_Role = mov.get("WriterRole");
+			List<String> Genre = mov.get("Genre");
+			
+			for(String s:title) {
+				System.out.println("Title"+s);
+			}
+			
+			for(String s:Company) {
+				System.out.println("Company"+s);
+			}
+			
+			for(String s:year) {
+				System.out.println("Year"+s);
+			}
+			
+			for(String s:Rating) {
+				System.out.println("Rating"+s);
+			}
+			
+			for(String s:Country) {
+				System.out.println("Country"+s);
+			}
+			
+			for(String s:Keywords) {
+				System.out.println("Keywords"+s);
+			}
+			
+			for(String s:Language) {
+				System.out.println("Language"+s);
+			}
+			
+			for(String s:Director_Name) {
+				System.out.println("Director Name"+s);
+			}
+			
+			for(String s:Direcror_Role) {
+				System.out.println("Director Role"+s);
+			}
+			
+			for(String s:Cast_Name) {
+				System.out.println("Cast Name"+s);
+			}
+			
+			for(String s:Cast_Role) {
+				System.out.println("Cast Role"+s);
+			}
+			
+			for(String s:Writer_Name) {
+				System.out.println("Writer Name"+s);
+			}
+			
+			
+			
+			for(String s:Writer_Role) {
+				System.out.println("Writer Role"+s);
+			}
+			
+			for(String s:Genre) {
+				System.out.println("Genre"+s);
+			}
+						
+		}
+		
+	}
 	
 	public void fillAddMovie() {
 		Movie.put("Title",Title);
@@ -57,6 +162,7 @@ public class StoreClass {
 		Movie.put("CastRole",CastRole);
 		Movie.put("WriterName",WriterName);
 		Movie.put("WriterRole",WriterRole);
+		Movie.put("Genre",Genre);
 	}
 	
 	public void AddIntoMovie(Integer movie) {

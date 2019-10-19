@@ -187,8 +187,6 @@ public class UserHandler extends DefaultHandler{
     	
     	}
     	
-    	//System.out.println(new String(ch, start, length));
-    	//System.out.println(i++);	
     }
    
     @Override
@@ -199,7 +197,6 @@ public class UserHandler extends DefaultHandler{
 	    	case "movie":
 	    		store.fillAddMovie();
 	    		store.AddIntoMovie(moviecount);
-	    		
 	    		break;		    		
 	    	case "year":
 	    		
