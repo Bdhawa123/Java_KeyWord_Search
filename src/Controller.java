@@ -21,28 +21,32 @@ public class Controller {
 	public Controller (View view, Model mod, Stage set) {
         this.controllermodel = mod;
         this.controllerview = view;
-    
+        UserHandler userhandler = new UserHandler();
         controllerview.addFileListener(e->{
         	FileChooser file = new FileChooser();
         	mod.selectedFile = file.showOpenDialog(set);
-        
-			view.getLabelSource().setText(mod.selectedFile.getName());
-			SAXParserFactory factory = SAXParserFactory.newInstance();
-			SAXParser saxParser;
-			UserHandler userhandler = new UserHandler();
-			try {
-				saxParser = factory.newSAXParser();
-				saxParser.parse(mod.selectedFile,userhandler);
-			} catch (ParserConfigurationException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (SAXException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+        	if (mod.selectedFile!=null) {
+				view.getLabelSource().setText(mod.selectedFile.getName());
+        	}
+				SAXParserFactory factory = SAXParserFactory.newInstance();
+				SAXParser saxParser;
+				
+				try {
+					saxParser = factory.newSAXParser();
+					saxParser.parse(mod.selectedFile,userhandler);
+					
+				} catch (ParserConfigurationException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SAXException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+        	
 			
 			
         });
@@ -54,7 +58,7 @@ public class Controller {
 				String line = reader.readLine();
 				
 				while(line!=null) {
-					view.getTextArea().setText("The next door neighbors are weird"+"\n");
+					view.getTextArea().setText(userhandler.Show_String());
 					line = reader.readLine();
 				}
 				

@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -93,23 +97,23 @@ public class UserHandler extends DefaultHandler{
     	switch(name){
     	
     	case "movie":
-    		System.out.println("Movie No "+moviecount);
+    		//System.out.println("Movie No "+moviecount);
     		name="";
     		break;
     	case "year":
-    		System.out.println("Year:"+new String(ch,start,length));
+    		//System.out.println("Year:"+new String(ch,start,length));
     		//store.getYear().add(getString);
     		store.add_Year(getString);
     		name="";
     		break;
     	case "title":
-    		System.out.println("Title :"+new String(ch,start,length));
+    		//System.out.println("Title :"+new String(ch,start,length));
     		store.add_Title(getString);
     		//store.getTitle().add(getString);
     		name="";
     		break;
     	case "rating":
-    		System.out.println("Rating :"+new String(ch,start,length));
+    		//System.out.println("Rating :"+new String(ch,start,length));
     		store.add_Rating(getString);
     		//store.getRating().add(getString);
     		name="";
@@ -125,7 +129,7 @@ public class UserHandler extends DefaultHandler{
     		name="";
     		break;
     	case "country":
-    		System.out.println("Country:"+new String(ch,start,length));
+    		//System.out.println("Country:"+new String(ch,start,length));
     		
     		store.add_Country(getString);
     		//store.getCountry().add(getString);
@@ -135,7 +139,7 @@ public class UserHandler extends DefaultHandler{
     		name="";
     		break;
     	case "company":
-    		System.out.println("Company:"+new String(ch,start,length));
+    		//System.out.println("Company:"+new String(ch,start,length));
     		store.add_Company(getString);
     		name="";
     		break;
@@ -143,25 +147,25 @@ public class UserHandler extends DefaultHandler{
     		name="";
     		break;
     	case "kw":
-    		System.out.println("Keywords:"+new String(ch,start,length));
+    		//System.out.println("Keywords:"+new String(ch,start,length));
     		store.add_Keyword(getString);
     		name="";
     		break; 
     		
     	case "name":
     		if(director) {
-    			System.out.println("Director:"+new String(ch,start,length));
+    			//System.out.println("Director:"+new String(ch,start,length));
     			store.add_Director_Name(getString);
     			//store.getDirectorName().add(getString);
     			
     		}else
 			if(writer) {
-				System.out.println("Writer:"+new String(ch,start,length));
+				//System.out.println("Writer:"+new String(ch,start,length));
 				store.add_WriterName(getString);
 				//store.getWriterName().add(getString);
 			}else
     		if(cast) {
-    			System.out.println("Cast:"+new String(ch,start,length));
+    			//System.out.println("Cast:"+new String(ch,start,length));
     			store.add_CastName(getString);
     			//store.getCastName().add(getString);
     		}
@@ -172,17 +176,17 @@ public class UserHandler extends DefaultHandler{
     		
     	case "role":
     		if (director) {
-    			System.out.println("Role:"+new String(ch,start,length));
+    			//System.out.println("Role:"+new String(ch,start,length));
     			store.add_Director_Role(getString);
     			//store.getDirectorRole().add(getString);
     		}else
 			if(writer) {
-				System.out.println("Writer role:"+new String(ch,start,length));
+				//System.out.println("Writer role:"+new String(ch,start,length));
 				store.add_WriterName(getString);
 				//store.getWriterRole().add(getString);
 			}else
     		if(cast) {
-    			System.out.println("Cast role:"+new String(ch,start,length));
+    			//System.out.println("Cast role:"+new String(ch,start,length));
     			store.add_CastRole(getString);
     			
     		}
@@ -190,7 +194,7 @@ public class UserHandler extends DefaultHandler{
     		break;
     	case "item":
     		if(genres) {
-    			System.out.println("Item:"+new String(ch,start,length));
+    			//System.out.println("Item:"+new String(ch,start,length));
     			//store.getGenre().add(getString);
     			store.add_Genre(getString);
     			//store.setGenre(store.getGenre().add(getString));
@@ -255,6 +259,72 @@ public class UserHandler extends DefaultHandler{
 	    		break;	    
 	    	}	     
 		   }
+    
+    	public String Show_String() {
+    		System.out.println("User Handler Begin");
+    		store.get_keywordreturn(store.getMovieset());
+    		String file = store.get_keywordreturn(store.getMovieset());
+    		return file;
+//    		Map<Integer, Map<String, List<String>>> Strreturn =store.getMovieset();
+//    		Map<String,List<String>> mov = Strreturn.get(1);
+//    		
+//    		List<String> title = mov.get("Title");
+//			List<String> year = mov.get("Year");
+//			List<String> Rating = mov.get("Rating");
+//			List<String> Country = mov.get("Country");
+//			List<String> Company = mov.get("Company");
+//			List<String> Keywords = mov.get("Keyword");
+//			List<String> Language = mov.get("Language");
+//			List<String> Director_Name = mov.get("DirectorName");
+//			List<String> Direcror_Role = mov.get("DirectorRole");
+//			List<String> Cast_Name = mov.get("CastName");
+//			List<String> Cast_Role = mov.get("CastRole");
+//			List<String> Writer_Name = mov.get("WriterName");
+//			List<String> Writer_Role = mov.get("WriterRole");
+//			List<String> Genre = mov.get("Genre");
+//			
+//			for(String s:title) {
+//				System.out.println("Title "+s);
+//				//getString+="Title"+s+"\n";
+//			}
+//			
+//			for(String s:Company) {
+//				System.out.println("Company"+s);
+//				//getString+="Company"+s+"\n";
+//			}
+//			
+//			for(String s:year) {
+//				System.out.println("Year"+s);
+//				//getString+="Year"+s+"\n";
+//			}
+//			
+//			for(String s:Rating) {
+//				System.out.println("Rating"+s);
+//				//getString+="Rating"+s+"\n";
+//			}
+//			
+//			for(String s:Country) {
+//				System.out.println("Country"+s);
+//				//getString+="Country"+s+"\n";
+//			}
+//			
+//			for(String s:Keywords) {
+//				if(s!=null) {
+//				System.out.println("Keywords"+s);
+//				//getString+="Keywords"+s+"\n";
+//				}
+//			}
+//    		
+    		
+    		
+    		
+    		
+    		
+//    		List<String> Titles = store.getTitle();
+//    		for(String title:Titles) {
+//    			System.out.println(title);
+//    		}
+    	}
     
 	
 

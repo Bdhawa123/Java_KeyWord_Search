@@ -41,9 +41,11 @@ public StoreClass() {
 	
 	public void add_Title(String title) {
 		Title.add(title);
+		
 	}
 	public void add_Year(String year) {
 		Year.add(year);
+		
 	}
 	public void add_Rating(String rating) {
 		Rating.add(rating);
@@ -57,6 +59,7 @@ public StoreClass() {
 	
 	public void add_Company(String company) {
 		Company.add(company);
+	
 	}
 	public void add_Keyword(String keyword) {
 		Keyword.add(keyword);
@@ -121,16 +124,18 @@ public StoreClass() {
 		return Moviesetreturn;
 	}
 	
-	public void get_keywordreturn(Map<Integer,Map<String,List<String>>> Moviesreturn) {
-		//int i = 0;
-		for(Map<String, List<String>> mov:Movieset.values()) {
-			//i++;
+	public String get_keywordreturn(Map<Integer,Map<String,List<String>>> Moviesreturn) {
+		int i = 0;
+		String getString ="";
+		for(Map<String, List<String>> mov:Moviesreturn.values()) {
+			i++;
+			getString+="Movie"+i+"\n";
 			List<String> title = mov.get("Title");
 			List<String> year = mov.get("Year");
 			List<String> Rating = mov.get("Rating");
 			List<String> Country = mov.get("Country");
 			List<String> Company = mov.get("Company");
-			List<String> Keywords = mov.get("Keywords");
+			List<String> Keywords = mov.get("Keyword");
 			List<String> Language = mov.get("Language");
 			List<String> Director_Name = mov.get("DirectorName");
 			List<String> Direcror_Role = mov.get("DirectorRole");
@@ -142,63 +147,79 @@ public StoreClass() {
 			
 			for(String s:title) {
 				System.out.println("Title"+s);
+				getString+="Title: "+s+"\n";
 			}
 			
 			for(String s:Company) {
 				System.out.println("Company"+s);
+				getString+="Company: "+s+"\n";
 			}
 			
 			for(String s:year) {
 				System.out.println("Year"+s);
+				getString+="Year: "+s+"\n";
 			}
 			
 			for(String s:Rating) {
 				System.out.println("Rating"+s);
+				getString+="Rating: "+s+"\n";
 			}
 			
 			for(String s:Country) {
 				System.out.println("Country"+s);
+				getString+="Country: "+s+"\n";
 			}
 			
 			for(String s:Keywords) {
 				System.out.println("Keywords"+s);
+				getString+="Keywords: "+s+"\n";
 			}
 			
 			for(String s:Language) {
 				System.out.println("Language"+s);
+				getString+="Language: "+s+"\n";
 			}
 			
 			for(String s:Director_Name) {
 				System.out.println("Director Name"+s);
+				getString+="Director Name: "+s+"\n";
 			}
 			
 			for(String s:Direcror_Role) {
 				System.out.println("Director Role"+s);
+				getString+="Director Role: "+s+"\n";
 			}
 			
 			for(String s:Cast_Name) {
 				System.out.println("Cast Name"+s);
+				getString+="Cast Name: "+s+"\n";
 			}
 			
 			for(String s:Cast_Role) {
 				System.out.println("Cast Role"+s);
+				getString+="Cast Role: "+s+"\n";
 			}
 			
 			for(String s:Writer_Name) {
 				System.out.println("Writer Name"+s);
+				getString+="Writer Name: "+s+"\n";
 			}
 			
 			
 			
 			for(String s:Writer_Role) {
 				System.out.println("Writer Role"+s);
+				getString+="Writer Role: "+s+"\n";
 			}
 			
 			for(String s:Genre) {
 				System.out.println("Genre"+s);
+				getString+="Genre: "+s+"\n";
 			}
 						
 		}
+		
+		return getString;
 		
 	}
 	
@@ -218,31 +239,26 @@ public StoreClass() {
 		Movie.put("WriterRole",WriterRole);
 		Movie.put("Genre",Genre);
 		
-		Title.clear();
-		Year.clear();
-		Rating.clear();
-		Country.clear();
-		Language.clear();
-		Company.clear();
-		Keyword.clear();
-		DirectorName.clear();
-		DirectorRole.clear();
-		CastName.clear();
-		CastRole.clear();
-		WriterName.clear();
-		WriterRole.clear();
-		Genre.clear();
+		Title= new ArrayList<String>();
+		Year= new ArrayList<String>();
+		Rating= new ArrayList<String>();
+		Country= new ArrayList<String>();
+		Language= new ArrayList<String>();
+		Company= new ArrayList<String>();
+		Keyword= new ArrayList<String>(); 
+		DirectorName= new ArrayList<String>();
+		DirectorRole = new ArrayList<String>();
+		CastName = new ArrayList<String>();
+		CastRole = new ArrayList<String>();
+		Genre = new ArrayList<String>();
+		WriterName = new ArrayList<String>();
+		WriterRole = new ArrayList<String>();
 	}
 	
 	public void AddIntoMovie(Integer movie) {
 		Movieset.put(movie, Movie);
-		Movie.clear();
+		Movie =new HashMap<String, List<String>>();
 	}
-	
-
-	
-	
-	
 	
 	public Map<String, List<String>> getMovie() {
 		return Movie;
