@@ -11,6 +11,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.SAXException;
 
 import javafx.scene.Group;
+import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -49,6 +50,10 @@ public class Controller {
         });
         
         controllerview.PieChart(e->{
+    		String setSearchresult = controllerview.getTxtInp().getText();
+        	//Group Root = new StackPane();
+        	Group root = new Group(controllermodel.PieChart(setSearchresult));
+        	controllerview.create_BarGraph(root);
         	
         });
         

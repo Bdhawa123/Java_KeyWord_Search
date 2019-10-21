@@ -8,10 +8,13 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.chart.PieChart;
 
 public class Model {
 	File selectedFile = new File("");
@@ -63,18 +66,33 @@ public class Model {
 		NumberAxis yAxis = new NumberAxis();
 		xAxis.setLabel("Movie Name");
 		yAxis.setLabel("No of Occurences");
+		
 		BarChart<String,Integer> BarchartBuilder = new BarChart(xAxis,yAxis);
 		XYChart.Series<String, Integer> series = new XYChart.Series<>();
 		BarchartBuilder.setTitle("Keyword "+search+" Occurences");
+		
 		Map<String,Integer> ret_search = userhandler.getCount(search);
 		for ( String key : ret_search.keySet() ) {
 			series.getData().add(new XYChart.Data(key,ret_search.get(key)));
-		    System.out.println( key+": "+ret_search.get(key));
+		    //System.out.println( key+": "+ret_search.get(key));
 		}
 		BarchartBuilder.getData().add(series);
 		
 		return BarchartBuilder;
 		
+	}
+	
+	
+	
+	public PieChart PieChart(String search) {
+		PieChart piChart = new PieChart();
+		ObservableList ListData = FXCollections.observableArrayList(); 
+		Map<String,Integer> ret_search = userhandler.getCount(search);
+		for ( String key : ret_search.keySet() ) {
+			ListData.add(new PieChart.Data(key,ret_search.get(key)));
+		}
+		piChart.setData(ListData);
+		return  piChart;
 	}
 	
 	
