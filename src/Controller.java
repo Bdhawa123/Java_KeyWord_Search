@@ -56,14 +56,10 @@ public class Controller {
         	try {
 				reader = new BufferedReader(new FileReader(mod.selectedFile.getPath()));
 				String line = reader.readLine();
-				
-				while(line!=null) {
-					view.getTextArea().setText(userhandler.Show_String());
-					line = reader.readLine();
-				}
+				view.getTextArea().setText(userhandler.Show_String());
 				
 				reader.close();
-				//read file
+				//read file	
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
