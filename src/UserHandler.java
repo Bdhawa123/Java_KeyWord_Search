@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -273,7 +274,33 @@ public class UserHandler extends DefaultHandler{
     		String return_val = store.get_keywordreturn(store.find(givenstring));
     		return return_val;
     	}
-    
+    	
+    	public Map<String,Integer> getCount(String keyword) {
+    		
+    		int count; int i=0;
+    		Map<Integer, Map<String, List<String>>> Moviesetreturn = store.find(keyword);
+    		Map<String,Integer> return_count= new HashMap<String, Integer>();
+    		
+    		for(Map<String, List<String>> mov:Moviesetreturn.values()) {
+    			i++; count =0; String Title = "";
+    			for(List<String> iterator: mov.values()) {
+    				for(String s:iterator) {
+    					if (s.toLowerCase().contains(keyword.toLowerCase())||s.equalsIgnoreCase(keyword)) {
+    						//Moviesetreturn.put(i, mov);
+    						count++;
+    					}
+    				}
+    				for(String title:mov.get("Title")) {
+    					Title = title;
+    				}
+    			}
+    			
+    			return_count.put(Title, count);
+    		}
+    	
+    		
+    		return return_count;
+    	}
 	
 
 

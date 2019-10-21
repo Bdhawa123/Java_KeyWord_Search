@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -27,7 +28,10 @@ public class View {
 	private TextArea txtR;
 	private TextField txtInp;
 	private Label lblSource;
-	private View newView;
+	private Button Bar_Chart;
+	private Button Pie_Chart;
+	private Stage StageChart;
+	
 	
 	public Label getLabelSource() {
 		return lblSource;
@@ -54,6 +58,25 @@ public class View {
 		this.txtInp = txtInp;
 	}
 	
+	public Button getBar_Chart() {
+		return Bar_Chart;
+	}
+
+	public void setBar_Chart(Button bar_Chart) {
+		Bar_Chart = bar_Chart;
+	}
+
+	public Button getPie_Chart() {
+		return Pie_Chart;
+	}
+
+	public void setPie_Chart(Button pie_Chart) {
+		Pie_Chart = pie_Chart;
+	}
+	
+	
+
+	
 	
 	public void createAndConfigurePane() {
 		view = new GridPane();
@@ -62,6 +85,16 @@ public class View {
 		view.setHgap(30);
 		view.setVgap(20);
 		view.setAlignment(Pos.CENTER);			
+	}
+	
+	public void create_BarGraph(Group root ) {
+		
+		Scene sc = new Scene(root,500,400);
+		StageChart = new Stage();
+		StageChart.setTitle("Bar-Chart");
+		StageChart.setScene(sc);
+		StageChart.show();
+		
 	}
 	
 	public void createAndLayoutControls() {
@@ -82,12 +115,17 @@ public class View {
 	 	txtInp.setMaxWidth(150);
 	 	TextField.setAlignment(Pos.TOP_RIGHT);
 	 	
-	 	
+	 	Bar_Chart= new Button("Bar Chart");
+	 	Pie_Chart= new Button("Pie Chart");
+	 	HBox ChartRow = new HBox(Bar_Chart,Pie_Chart);
+	 	ChartRow.setSpacing(50);
+	 	ChartRow.setMinHeight(10);
+	 	ChartRow.setAlignment(Pos.CENTER);
 		
 	 	LoadXML = new Button("Parse XML");
 	 	HBox hbox = new HBox(LoadXML);
 		hbox.setAlignment(Pos.CENTER); 
-		
+		hbox.setMinHeight(30);
 		txtR = new TextArea();
 	
 		view.addRow(0,hboxSource);
@@ -95,10 +133,9 @@ public class View {
 		view.addRow(2, TextField);
 		view.addRow(3,hbox);
 		view.addRow(4, txtR);
+		view.addRow(5, ChartRow);
+		
 	}
-	
-	
-	
 
 	public void addFileListener(EventHandler<ActionEvent> listener){
 		ChooseXML.setOnAction(listener);
@@ -113,6 +150,16 @@ public class View {
 		Search.setOnAction(listener);
 		
 	}
+	public void BarGraph(EventHandler<ActionEvent> listener) {
+		Bar_Chart.setOnAction(listener);
+		
+	}
+	public void PieChart(EventHandler<ActionEvent> listener) {
+		Pie_Chart.setOnAction(listener);
+		
+	}
+	
+	
 
 
 	// @Override

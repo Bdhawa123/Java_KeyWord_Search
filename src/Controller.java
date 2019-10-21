@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -9,6 +10,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
 
+import javafx.scene.Group;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -28,15 +30,28 @@ public class Controller {
         });
         
         controllerview.addFileOpenListener(e->{
-        	view.getTextArea().setText(mod.ReturnString());
+        	controllerview.getTextArea().setText(controllermodel.ReturnString());
 
 		});
         
         controllerview.addSearchListener(e->{
         	//
-        	String setSearchresult = mod.Search_String(controllerview.getTxtInp().getText());
-        	view.getTextArea().setText(setSearchresult);
+        	String setSearchresult = controllermodel.Search_String(controllerview.getTxtInp().getText());
+        	controllerview.getTextArea().setText(setSearchresult);
         });
+        
+        controllerview.BarGraph(e->{
+        	String setSearchresult = controllerview.getTxtInp().getText();
+        	
+        	Group root = new Group(controllermodel.barchart(setSearchresult));
+        	controllerview.create_BarGraph(root);
+        	
+        });
+        
+        controllerview.PieChart(e->{
+        	
+        });
+        
         
       
 		
