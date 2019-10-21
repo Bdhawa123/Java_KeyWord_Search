@@ -10,8 +10,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -19,8 +23,11 @@ public class View {
 	private GridPane view;
 	private Button ChooseXML;
 	private Button LoadXML;
+	private Button Search;
 	private TextArea txtR;
+	private TextField txtInp;
 	private Label lblSource;
+	private View newView;
 	
 	public Label getLabelSource() {
 		return lblSource;
@@ -39,14 +46,21 @@ public class View {
 		return txtR;
 	}
 	
+	public TextField getTxtInp() {
+		return txtInp;
+	}
+
+	public void setTxtInp(TextField txtInp) {
+		this.txtInp = txtInp;
+	}
 	
 	
 	public void createAndConfigurePane() {
 		view = new GridPane();
 		view.setPadding(new Insets(10,10,10,10));
 		view.setMinSize(10,60);
-		view.setHgap(20);
-		view.setVgap(10);
+		view.setHgap(30);
+		view.setVgap(20);
 		view.setAlignment(Pos.CENTER);			
 	}
 	
@@ -57,6 +71,18 @@ public class View {
 	 	lblSource.setAlignment(Pos.CENTER);
 	 	HBox hboxSource = new HBox(ChooseXML,lblSource );
 	 	
+	 	//txtInp = new TextField();
+	 	txtInp = new TextField();
+	 	//txtInp.setPrefWidth(50);
+	 	Text SearchLabel = new Text("Search: ");
+	 	SearchLabel.setFont(Font.font(" ",FontWeight.BOLD,15));
+	 	
+	 	Search = new Button("Find");
+	 	HBox TextField = new HBox(SearchLabel,txtInp,Search);
+	 	txtInp.setMaxWidth(150);
+	 	TextField.setAlignment(Pos.TOP_RIGHT);
+	 	
+	 	
 		
 	 	LoadXML = new Button("Parse XML");
 	 	HBox hbox = new HBox(LoadXML);
@@ -64,13 +90,11 @@ public class View {
 		
 		txtR = new TextArea();
 	
-		
-		
-		
 		view.addRow(0,hboxSource);
 		view.addRow(1, lblSource);
-		view.addRow(2,hbox);
-		view.addRow(3, txtR);
+		view.addRow(2, TextField);
+		view.addRow(3,hbox);
+		view.addRow(4, txtR);
 	}
 	
 	
@@ -82,6 +106,11 @@ public class View {
 	
 	public void addFileOpenListener(EventHandler<ActionEvent> listener) {
 		LoadXML.setOnAction(listener);
+		
+	}
+	
+	public void addSearchListener(EventHandler<ActionEvent> listener) {
+		Search.setOnAction(listener);
 		
 	}
 

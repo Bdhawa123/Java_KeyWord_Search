@@ -21,51 +21,24 @@ public class Controller {
 	public Controller (View view, Model mod, Stage set) {
         this.controllermodel = mod;
         this.controllerview = view;
-        UserHandler userhandler = new UserHandler();
         controllerview.addFileListener(e->{
         	FileChooser file = new FileChooser();
         	mod.selectedFile = file.showOpenDialog(set);
-        	if (mod.selectedFile!=null) {
-				view.getLabelSource().setText(mod.selectedFile.getName());
-        	}
-				SAXParserFactory factory = SAXParserFactory.newInstance();
-				SAXParser saxParser;
-				
-				try {
-					saxParser = factory.newSAXParser();
-					saxParser.parse(mod.selectedFile,userhandler);
-					
-				} catch (ParserConfigurationException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (SAXException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-        	
-			
-			
+        	mod.ParseXML();
         });
         
         controllerview.addFileOpenListener(e->{
-        	BufferedReader reader = null;
-        	try {
-				reader = new BufferedReader(new FileReader(mod.selectedFile.getPath()));
-				String line = reader.readLine();
-				view.getTextArea().setText(userhandler.Show_String());
-				
-				reader.close();
-				//read file	
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-        		
+        	view.getTextArea().setText(mod.ReturnString());
+
 		});
+        
+        controllerview.addSearchListener(e->{
+        	//
+        	String setSearchresult = mod.Search_String(controllerview.getTxtInp().getText());
+        	view.getTextArea().setText(setSearchresult);
+        });
+        
+      
 		
 		
     

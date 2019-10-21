@@ -18,6 +18,7 @@ public class StoreClass {
 	private List<String> WriterName;
 	private List<String> WriterRole;
 	private List<String> Genre;
+	private int count;
 	
 public StoreClass() {
 		
@@ -108,7 +109,7 @@ public StoreClass() {
 	
 	
 	public Map<Integer,Map<String,List<String>>> find(String keyword) {
-		int i = 0;
+		int i = 0; count=0;
 		Map<Integer,Map<String,List<String>>> Moviesetreturn=new HashMap<Integer,Map<String,List<String>>>();;
 		for(Map<String, List<String>> mov:Movieset.values()) {
 			i++;
@@ -116,10 +117,10 @@ public StoreClass() {
 				for(String s:iterator) {
 					if (s.toLowerCase().contains(keyword.toLowerCase())||s.equalsIgnoreCase(keyword)) {
 						Moviesetreturn.put(i, mov);
+						count++;
 					}
 				}
-			}
-			
+			}			
 		}
 		return Moviesetreturn;
 	}
@@ -129,7 +130,7 @@ public StoreClass() {
 		String getString ="";
 		for(Map<String, List<String>> mov:Moviesreturn.values()) {
 			i++;
-			getString+="Movie"+i+"\n";
+			getString+="Movie "+i+"\n";
 			List<String> title = mov.get("Title");
 			List<String> year = mov.get("Year");
 			List<String> Rating = mov.get("Rating");
