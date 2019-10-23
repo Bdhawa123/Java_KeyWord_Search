@@ -56,12 +56,6 @@ public class Controller {
         	
         });
         
-        
-      
-		
-		
-    
-        
     }
 
 

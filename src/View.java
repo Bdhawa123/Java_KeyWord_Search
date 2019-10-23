@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -31,6 +32,10 @@ public class View {
 	private Button Bar_Chart;
 	private Button Pie_Chart;
 	private Stage StageChart;
+	RadioButton Top5;
+	RadioButton Top3;  
+	RadioButton Top8;  
+	RadioButton Top10;  
 	
 	
 	public Label getLabelSource() {
@@ -88,8 +93,25 @@ public class View {
 	}
 	
 	public void create_BarGraph(Group root ) {
+		RadioButton Top5 = new RadioButton("Top 5");  
+		RadioButton Top3 = new RadioButton("Top 3");  
+		RadioButton Top8 = new RadioButton("Top 8");  
+		RadioButton Top10 = new RadioButton("Top 10");  
 		
-		Scene sc = new Scene(root,500,400);
+//		root.getChildren().add(Top5);
+//		root.getChildren().add(Top3);
+//		root.getChildren().add(Top8);
+//		root.getChildren().add(Top10);
+//		
+		HBox hboxSource = new HBox(Top5,Top3,Top8,Top10);
+		hboxSource.setAlignment(Pos.TOP_CENTER);
+		hboxSource.setSpacing(30);
+		//root.getChildren().add(hboxSource);
+		GridPane view1 = new GridPane();
+		view1.add(root, 0,0);
+		view1.addRow(2,hboxSource);
+		Scene sc = new Scene(view1,500,450);
+		
 		StageChart = new Stage();
 		StageChart.setTitle("Bar-Chart");
 		StageChart.setScene(sc);
