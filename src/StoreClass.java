@@ -18,7 +18,13 @@ public class StoreClass {
 	private List<String> WriterName;
 	private List<String> WriterRole;
 	private List<String> Genre;
+	private Map<String,Integer> Index;
 	private int count;
+	
+
+	Map<String, List<String>> Movie = new HashMap<String, List<String>>();
+	Map<Integer,Map<String,List<String>>> Movieset= new HashMap<Integer,Map<String,List<String>>>();
+	
 	
 public StoreClass() {
 		
@@ -36,9 +42,13 @@ public StoreClass() {
 		Genre = new ArrayList<String>();
 		WriterName = new ArrayList<String>();
 		WriterRole = new ArrayList<String>();
+		Index = new HashMap<String,Integer>();
 		
 	}
 	
+	public Map<String,Integer> getIndex() {
+		return Index;
+	}
 	
 	public void add_Title(String title) {
 		Title.add(title);
@@ -99,9 +109,6 @@ public StoreClass() {
 	}
 	
 
-	Map<String, List<String>> Movie = new HashMap<String, List<String>>();
-	Map<Integer,Map<String,List<String>>> Movieset= new HashMap<Integer,Map<String,List<String>>>();
-	
 	public boolean search(String contains) {
 		boolean return_val = false;
 		return return_val;
@@ -348,10 +355,69 @@ public StoreClass() {
 	public List<String> getWriterRole() {
 		return WriterRole;
 	}
-
 	
 	
+	public void createIndex(String indexbuilder) {
+		char[] ch = indexbuilder.toCharArray();
+		boolean val = false;
+		for(char c:ch) {
+			if (Character.getNumericValue(c)!=-1) {
+				val=true;
+			}
+				
+			//System.out.println(Character.getNumericValue(c));
+		}
+		if(val) {
+			System.out.println(indexbuilder);
+			if (Index.isEmpty()) {
+				
+				Index.put(indexbuilder.toLowerCase(), 1);
+			}
+			else {
+				if(!(Index.get(indexbuilder.toLowerCase())!=null)) {
+					Index.put(indexbuilder, 1);
+				}
+				else {
+					Index.put(indexbuilder, Index.get(indexbuilder)+1);
+				}
+			}
+		}
 	
+	}
 		
+		
+//		else {
+//			System.out.println("Gets here");
+//			boolean find = false;
+//			for(IndexBuild ind:Index.values()) {
+//				System.out.println(ind.getKeyword());
+//				if(ind.getKeyword()==indexbuilder) {
+//					ind.addCount();
+//					find = true;
+//					System.out.println("Reachable code");
+//				}
+//			}
+//			if (find==false) {
+//				Index.put(indexbuilder, new IndexBuild(indexbuilder));
+//			}
+//		}
+	
 
+}
+
+class IndexBuild{
+	int count;
+	String Keyword;
+	public IndexBuild(String Keyword) {
+		this.Keyword = Keyword;
+		this.count =1;
+	}
+	
+	public String getKeyword() {
+		return Keyword;
+	}
+	
+	public void addCount() {
+		count++;
+	}
 }

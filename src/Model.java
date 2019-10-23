@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
-
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -10,6 +9,7 @@ import org.xml.sax.SAXException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Side;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -52,6 +52,8 @@ public class Model {
 	}
 	
 	public String ReturnString() {
+		System.out.println("\n\n\n return string");
+		userhandler.Prinit_Keyword_counts();
 		return userhandler.Show_String();
 	}
 	
@@ -71,9 +73,12 @@ public class Model {
 		XYChart.Series<String, Integer> series = new XYChart.Series<>();
 		BarchartBuilder.setTitle("Keyword "+search+" Occurences");
 		
-		Map<String,Integer> ret_search = userhandler.getCount(search);
+		Map<String,Integer> ret_search = userhandler.KeywordCount(search);
 		for ( String key : ret_search.keySet() ) {
+			Integer ld = ret_search.get(key);
+			if (ld!=null) {
 			series.getData().add(new XYChart.Data(key,ret_search.get(key)));
+			}
 		    //System.out.println( key+": "+ret_search.get(key));
 		}
 		BarchartBuilder.getData().add(series);
@@ -87,11 +92,18 @@ public class Model {
 	public PieChart PieChart(String search) {
 		PieChart piChart = new PieChart();
 		ObservableList ListData = FXCollections.observableArrayList(); 
-		Map<String,Integer> ret_search = userhandler.getCount(search);
+		Map<String,Integer> ret_search = userhandler.KeywordCount(search);
+		
 		for ( String key : ret_search.keySet() ) {
-			ListData.add(new PieChart.Data(key,ret_search.get(key)));
+			Integer ld = ret_search.get(key);
+			if (ld!=null) {
+				ListData.add(new PieChart.Data(key,ret_search.get(key)));
+			}
 		}
 		piChart.setData(ListData);
+		piChart.setLegendSide(Side.LEFT);
+		piChart.setTitle("Keywords in Movies"+search);
+		
 		return  piChart;
 	}
 	

@@ -36,7 +36,6 @@ public class Controller {
 		});
         
         controllerview.addSearchListener(e->{
-        	//
         	String setSearchresult = controllermodel.Search_String(controllerview.getTxtInp().getText());
         	controllerview.getTextArea().setText(setSearchresult);
         });

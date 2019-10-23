@@ -95,6 +95,13 @@ public class UserHandler extends DefaultHandler{
     @Override
 	   public void characters(char ch[], int start, int length) throws SAXException {
     	String getString = new String(ch,start,length);
+		if(getString.trim()!=""||getString.trim()==null) {
+			store.createIndex(getString);
+			
+		}
+		else {
+			System.out.println("White space in character"+getString);
+		}
     	switch(name){
     	
     	case "movie":
@@ -210,7 +217,7 @@ public class UserHandler extends DefaultHandler{
    
     @Override
 	   public void endElement(String uri, String localName, String qName) throws SAXException {
-
+    	
     	switch(qName){
     	
 	    	case "movie":
@@ -300,6 +307,36 @@ public class UserHandler extends DefaultHandler{
     	
     		
     		return return_count;
+    	}
+    	
+    	public  Map<String,Integer> KeywordCount(String keyword) {
+    		Map<Integer, Map<String, List<String>>> Moviesetreturn = store.find(keyword);
+    		Map<String,Integer> return_count= new HashMap<String, Integer>();
+    		
+    		for(Map<String, List<String>> mov:Moviesetreturn.values()) {
+    			for(List<String> iterator: mov.values()) {
+    				for(String s:iterator) {
+    					return_count.put(s,store.getIndex().get(s));
+    				}
+    			}
+    		
+    		}
+    		System.out.println("KeyWord Count");
+    		for(String s:return_count.keySet()) {
+    			System.out.println(s+"\t"+return_count.get(s));
+    		}
+    		return return_count;
+    	}
+    	
+    	public void Prinit_Keyword_counts(){
+    		Map<String,Integer> index = store.getIndex();
+    		//int i =0;
+    		for(String key:index.keySet()) {
+    			System.out.println(key+" "+index.get(key));
+    		//	i++;
+
+    		}
+    		
     	}
 	
 

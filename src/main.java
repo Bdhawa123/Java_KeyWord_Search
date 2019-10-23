@@ -5,8 +5,6 @@ import javafx.stage.Stage;
 public class main extends Application {
 	
 		public static void main(String[] args) {			
-			//TOBE noted data.tsv -> is the file downloaded from the imdb website, not required for this assignment
-			//set gui launch 
 			launch();
 		}
 		
