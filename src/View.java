@@ -1,6 +1,8 @@
 import java.io.File;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -8,15 +10,14 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import java.awt.Graphics2D;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -31,7 +32,11 @@ public class View {
 	private Button Bar_Chart;
 	private Button Pie_Chart;
 	private Stage StageChart;
-	
+	private RadioButton top3RButton;
+	private RadioButton top5RButton;
+	private RadioButton top8RButton;
+	private RadioButton top10RButton;
+	private ToggleGroup groupRadioButton;
 	
 	public Label getLabelSource() {
 		return lblSource;
@@ -114,7 +119,40 @@ public class View {
 	 	HBox TextField = new HBox(SearchLabel,txtInp,Search);
 	 	txtInp.setMaxWidth(150);
 	 	TextField.setAlignment(Pos.TOP_RIGHT);
-	 	
+
+		groupRadioButton = new ToggleGroup();
+
+	 	top3RButton= new RadioButton();
+	 	top3RButton.setText("Top 3 correlated keywords");
+	 	top3RButton.setToggleGroup(groupRadioButton);
+
+	 	top5RButton = new RadioButton();
+	 	top5RButton.setText("Top 5 correlated keywords");
+	 	top5RButton.setToggleGroup(groupRadioButton);
+
+	 	top8RButton = new RadioButton();
+	 	top8RButton.setText("Top 8 correlated keywords");
+	 	top8RButton.setToggleGroup(groupRadioButton);
+
+	 	top10RButton = new RadioButton();
+	 	top10RButton.setText("Top 10 correlated keywords");
+	 	top10RButton.setToggleGroup(groupRadioButton);
+
+	 	VBox vContainer = new VBox(top3RButton,top5RButton,top8RButton,top10RButton);
+
+		groupRadioButton.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+			@Override
+			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
+				RadioButton selectedRadioButton = (RadioButton) groupRadioButton.getSelectedToggle();
+				if(selectedRadioButton != null)
+				{
+					String s = selectedRadioButton.getText();
+					radioButtonListener(s);
+
+				}
+			}
+		});
+
 	 	Bar_Chart= new Button("Bar Chart");
 	 	Pie_Chart= new Button("Pie Chart");
 	 	HBox ChartRow = new HBox(Bar_Chart,Pie_Chart);
@@ -133,7 +171,8 @@ public class View {
 		view.addRow(2, TextField);
 		view.addRow(3,hbox);
 		view.addRow(4, txtR);
-		view.addRow(5, ChartRow);
+		view.addRow(5, vContainer  );
+		view.addRow(6, ChartRow);
 		
 	}
 
@@ -158,8 +197,18 @@ public class View {
 		Pie_Chart.setOnAction(listener);
 		
 	}
-	
-	
+
+
+	public void radioButtonListener(String value)
+	{
+		if(value.equalsIgnoreCase("Top 3 correlated keywords"))
+		{
+
+		}
+//		Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+//		a.setContentText(value);
+//		a.show();
+	}
 
 
 	// @Override

@@ -2,7 +2,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -38,7 +40,9 @@ public class Controller {
         controllerview.addSearchListener(e->{
         	//
         	String setSearchresult = controllermodel.Search_String(controllerview.getTxtInp().getText());
+
         	controllerview.getTextArea().setText(setSearchresult);
+
         });
         
         controllerview.BarGraph(e->{
@@ -57,7 +61,7 @@ public class Controller {
         	
         });
         
-        
+
       
 		
 		
