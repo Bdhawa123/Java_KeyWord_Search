@@ -37,6 +37,7 @@ public class View {
 	private RadioButton top8RButton;
 	private RadioButton top10RButton;
 	private ToggleGroup groupRadioButton;
+	private int selectedRadioButtonValue ;
 	
 	public Label getLabelSource() {
 		return lblSource;
@@ -45,6 +46,7 @@ public class View {
 	public View() {
 		createAndConfigurePane();
 		createAndLayoutControls();
+		this.selectedRadioButtonValue = 0;
 	}
 
 	public Parent getParent(){
@@ -140,6 +142,7 @@ public class View {
 
 	 	VBox vContainer = new VBox(top3RButton,top5RButton,top8RButton,top10RButton);
 
+	 	//toggle listener for the radio button
 		groupRadioButton.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			@Override
 			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
@@ -175,7 +178,10 @@ public class View {
 		view.addRow(6, ChartRow);
 		
 	}
-
+    public String radioButtonAction(ActionEvent action)
+	{
+		return groupRadioButton.getSelectedToggle().getUserData().toString();
+	}
 	public void addFileListener(EventHandler<ActionEvent> listener){
 		ChooseXML.setOnAction(listener);
 	}
@@ -198,16 +204,30 @@ public class View {
 		
 	}
 
-
+	// getter method for returning the variable
+	public int getSelectedRadioButtonValue()
+	{
+		return  selectedRadioButtonValue;
+	}
+	// decide which radio button has selected and then sets the value to selectedradiobuttonvalue variable
 	public void radioButtonListener(String value)
 	{
 		if(value.equalsIgnoreCase("Top 3 correlated keywords"))
 		{
-
+			this.selectedRadioButtonValue = 3;
 		}
-//		Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-//		a.setContentText(value);
-//		a.show();
+		else if (value.equalsIgnoreCase("Top 5 correlated keywords"))
+		{
+			this.selectedRadioButtonValue = 5;
+		}
+		else if (value.equalsIgnoreCase("Top 8 correlated keywords"))
+		{
+			this.selectedRadioButtonValue = 8;
+		}
+		else
+		{
+			this.selectedRadioButtonValue = 10;
+		}
 	}
 
 

@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -21,7 +22,9 @@ public class Model {
 	SAXParserFactory factory = SAXParserFactory.newInstance();
 	SAXParser saxParser;
 	UserHandler userhandler = new UserHandler();
-	
+	private Map<String,Integer> ret_search;
+	private  Map<String,Integer> data;
+
 	public File getFile() {
 		return selectedFile;
 	}
@@ -59,8 +62,14 @@ public class Model {
 	
 	public String Search_String(String search) {
 		
-		Map<String,Integer> ret_search = userhandler.getCount(search);
+		 ret_search = userhandler.getCount(search);
 		return userhandler.Search(search);
+	}
+
+	public Map<String,Integer> getKeywordsData()
+	{
+		 data = userhandler.getKeywordsDeatil();
+		return data;
 	}
 	
 	public BarChart<String,Integer> barchart(String search){
@@ -86,8 +95,32 @@ public class Model {
 		return BarchartBuilder;
 		
 	}
-	
-	
+
+	public BarChart<String,Integer> topbarChart(String search, ArrayList<String> keywordList, int times){
+		CategoryAxis xAxi = new CategoryAxis();
+		NumberAxis yAxi = new NumberAxis();
+		xAxi.setLabel("Movie Name");
+		yAxi.setLabel("No of Occurences");
+
+		BarChart<String,Integer> BarchartBuilder = new BarChart(xAxi,yAxi);
+		XYChart.Series<String, Integer> series = new XYChart.Series<>();
+		BarchartBuilder.setTitle("Keyword "+search+" Occurences");
+
+
+		for (int i = 0; i<times ; i++ ) {
+
+			Integer ld = data.get(keywordList.get(i).trim());
+			if (ld!=null) {
+				series.getData().add(new XYChart.Data(keywordList.get(i),ld));
+			}
+			//System.out.println( key+": "+ret_search.get(key));
+		}
+		BarchartBuilder.getData().add(series);
+
+		return BarchartBuilder;
+
+	}
+
 	
 	public PieChart PieChart(String search) {
 		PieChart piChart = new PieChart();
@@ -106,8 +139,25 @@ public class Model {
 		
 		return  piChart;
 	}
-	
-	
+
+
+	public PieChart topPieChart(String search, ArrayList<String>keywordList,int counts) {
+		PieChart piChart = new PieChart();
+		ObservableList ListData = FXCollections.observableArrayList();
+
+
+		for ( int i = 0; i<counts; i++ ) {
+			Integer ld = data.get(keywordList.get(i).trim());
+			if (ld!=null) {
+				ListData.add(new PieChart.Data(keywordList.get(i),ld));
+			}
+		}
+		piChart.setData(ListData);
+		piChart.setLegendSide(Side.LEFT);
+		piChart.setTitle("Keywords in Movies"+search);
+
+		return  piChart;
+	}
 	
 	
 	

@@ -338,7 +338,10 @@ public class UserHandler extends DefaultHandler{
     		}
 
     	}
-
+		public Map<String,Integer> getKeywordsDeatil()
+		{
+			return  store.getIndex();
+		}
 
 
 }
