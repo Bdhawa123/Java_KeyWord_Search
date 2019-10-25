@@ -1,11 +1,21 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import static java.util.stream.Collectors.*;
+
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
 import org.xml.sax.SAXException;
 
 import javafx.beans.value.ChangeListener;
@@ -26,7 +36,7 @@ public class Model {
 	SAXParserFactory factory = SAXParserFactory.newInstance();
 	SAXParser saxParser;
 	UserHandler userhandler = new UserHandler();
-	private int keyword_occurence = 0;
+	private int keyword_occurence = 5;
 	private Map<String,Integer> ret_search;
 	private  Map<String,Integer> data;
 	
@@ -65,8 +75,6 @@ public class Model {
 	}
 	
 	public String ReturnString() {
-		System.out.println("\n\n\n return string");
-		userhandler.Prinit_Keyword_counts();
 		return userhandler.Show_String();
 	}
 	
@@ -81,6 +89,9 @@ public class Model {
 		 data = userhandler.getKeywordsDeatil();
 		return data;
 	}
+	         
+
+  
 	
 	public BarChart<String,Integer> barchart(String search){
 		CategoryAxis xAxis = new CategoryAxis();
@@ -90,19 +101,35 @@ public class Model {
 		
 		BarChart<String,Integer> BarchartBuilder = new BarChart(xAxis,yAxis);
 		XYChart.Series<String, Integer> series = new XYChart.Series<>();
-		BarchartBuilder.setTitle("Keyword "+search+" Occurences");
+		BarchartBuilder.setTitle("Keyword "+search+" Occurences");		
 		
-		Map<String,Integer> ret_search = userhandler.KeywordCount(search);
+		Map<String,Integer> ret_search = Sort(userhandler.KeywordCount(search));		
+		
+//		System.out.println("Sort begin");
+//		System.out.println("**************************************");
+		int i =0;
 		for ( String key : ret_search.keySet() ) {
-			Integer ld = ret_search.get(key);
-			if (ld!=null) {
-			series.getData().add(new XYChart.Data(key,ret_search.get(key)));
+			if(i<keyword_occurence) {
+				series.getData().add(new XYChart.Data(key,ret_search.get(key)));
+				//System.out.println(key+" "+ret_search.get(key));
+				i++;
 			}
-		    //System.out.println( key+": "+ret_search.get(key));
+			else {
+				break;
+			}
 		}
+	 
 		BarchartBuilder.getData().add(series);
-		
-		return BarchartBuilder;
+		return BarchartBuilder;	
+	}
+	
+	public Map<String, Integer> Sort(Map<String, Integer> str){
+		Map<String, Integer> sorted = str.entrySet()
+				  .stream()
+				  .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+				  .collect(toMap(e -> e.getKey(), e -> e.getValue(), (e1, e2) -> e2,
+				                LinkedHashMap::new));
+		return sorted;
 		
 	}
 
@@ -123,7 +150,6 @@ public class Model {
 			if (ld!=null) {
 				series.getData().add(new XYChart.Data(keywordList.get(i),ld));
 			}
-			//System.out.println( key+": "+ret_search.get(key));
 		}
 		BarchartBuilder.getData().add(series);
 
@@ -135,55 +161,25 @@ public class Model {
 	public PieChart PieChart(String search) {
 		PieChart piChart = new PieChart();
 		ObservableList ListData = FXCollections.observableArrayList(); 
-		Map<String,Integer> ret_search = userhandler.KeywordCount(search);
-		
+		Map<String,Integer> ret_search = Sort(userhandler.KeywordCount(search));		
+		int i =0;
 		for ( String key : ret_search.keySet() ) {
-			Integer ld = ret_search.get(key);
-			if (ld!=null) {
+			if(i<keyword_occurence) {
 				ListData.add(new PieChart.Data(key,ret_search.get(key)));
+				System.out.println(key+" "+ret_search.get(key));
+				i++;
+			}
+			else {
+				break;
 			}
 		}
+		
 		piChart.setData(ListData);
 		piChart.setLegendSide(Side.LEFT);
 		piChart.setTitle("Keywords in Movies"+search);
 		
 		return  piChart;
-	}
-
-
-	public PieChart topPieChart(String search, ArrayList<String>keywordList,int counts) {
-		PieChart piChart = new PieChart();
-		ObservableList ListData = FXCollections.observableArrayList();
-
-
-		for ( int i = 0; i<counts; i++ ) {
-			Integer ld = data.get(keywordList.get(i).trim());
-			if (ld!=null) {
-				ListData.add(new PieChart.Data(keywordList.get(i),ld));
-			}
-		}
-		piChart.setData(ListData);
-		piChart.setLegendSide(Side.LEFT);
-		piChart.setTitle("Keywords in Movies"+search);
-
-		return  piChart;
-	}
-	
-	//radio btn 
-	public ChangeListener<Toggle> RadioBtn() {
-		
-		 ChangeListener<Toggle> ChangeListener = new  ChangeListener<Toggle>() {
-			 @Override
-			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
-					RadioButton lsd = (RadioButton)newValue.getToggleGroup().getSelectedToggle();
-					System.out.println(lsd.getId());
-			}
-		};
-		
-		return ChangeListener;
-	}
-	
-	
+	}		
 	
 	
 	

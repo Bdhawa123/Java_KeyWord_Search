@@ -8,19 +8,10 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 public class UserHandler extends DefaultHandler{
-	//boolean movie = false, title,rating,director,genres, writer, country, language,company,cast,keyword;
-	boolean movie = false;
-	boolean year = false;
-	boolean title = false;
-	boolean rating = false;
 	boolean director = false;
 	boolean genres = false;
 	boolean writer = false;
-	boolean country = false;
-	boolean language = false;
-	boolean company = false;
 	boolean cast = false;
-	boolean keyword = false;
 	StoreClass store ;
 	
 	private String name = "";
@@ -33,9 +24,7 @@ public class UserHandler extends DefaultHandler{
 	
     @Override
 	   public void startElement( String uri, String localName, String qName, Attributes attributes)
-	      throws SAXException {
-    	//System.out.println(i++);
-    	
+	      throws SAXException {    	
     	switch(qName){
     	case "movie":
     		name ="movie";
@@ -99,35 +88,24 @@ public class UserHandler extends DefaultHandler{
 			store.createIndex(getString);
 
 		}
-		else {
-			System.out.println("White space in character"+getString);
-		}
     	switch(name){
     	
     	case "movie":
-    		//System.out.println("Movie No "+moviecount);
     		name="";
     		break;
     	case "year":
-    		//System.out.println("Year:"+new String(ch,start,length));
-    		//store.getYear().add(getString);
     		store.add_Year(getString);
     		name="";
     		break;
     	case "title":
-    		//System.out.println("Title :"+new String(ch,start,length));
     		store.add_Title(getString);
-    		//store.getTitle().add(getString);
     		name="";
     		break;
     	case "rating":
-    		//System.out.println("Rating :"+new String(ch,start,length));
     		store.add_Rating(getString);
-    		//store.getRating().add(getString);
     		name="";
     		break;
     	case "director":
-    		//System.out.println("Director:"+new String(ch,start,length));
     		name="";
     		break;
     	case "genres":
@@ -137,17 +115,14 @@ public class UserHandler extends DefaultHandler{
     		name="";
     		break;
     	case "country":
-    		//System.out.println("Country:"+new String(ch,start,length));
-    		
     		store.add_Country(getString);
-    		//store.getCountry().add(getString);
     		name="";
     		break;
     	case "language":
     		name="";
     		break;
     	case "company":
-    		//System.out.println("Company:"+new String(ch,start,length));
+    		
     		store.add_Company(getString);
     		name="";
     		break;
@@ -155,27 +130,23 @@ public class UserHandler extends DefaultHandler{
     		name="";
     		break;
     	case "kw":
-    		//System.out.println("Keywords:"+new String(ch,start,length));
     		store.add_Keyword(getString);
     		name="";
     		break; 
     		
     	case "name":
     		if(director) {
-    			//System.out.println("Director:"+new String(ch,start,length));
-    			store.add_Director_Name(getString);
-    			//store.getDirectorName().add(getString);
     			
+    			store.add_Director_Name(getString);
     		}else
 			if(writer) {
-				//System.out.println("Writer:"+new String(ch,start,length));
+			
 				store.add_WriterName(getString);
-				//store.getWriterName().add(getString);
+				
 			}else
     		if(cast) {
-    			//System.out.println("Cast:"+new String(ch,start,length));
     			store.add_CastName(getString);
-    			//store.getCastName().add(getString);
+    			
     		}
     		
     		name="";
@@ -202,11 +173,7 @@ public class UserHandler extends DefaultHandler{
     		break;
     	case "item":
     		if(genres) {
-    			//System.out.println("Item:"+new String(ch,start,length));
-    			//store.getGenre().add(getString);
     			store.add_Genre(getString);
-    			//store.setGenre(store.getGenre().add(getString));
-    			
     		}
     		name="";
     		break;
@@ -269,7 +236,6 @@ public class UserHandler extends DefaultHandler{
 		   }
     
     	public String Show_String() {
-    		//System.out.println("User Handler Begin");
     		store.get_keywordreturn(store.getMovieset());
     		String file = store.get_keywordreturn(store.getMovieset());
     		return file;
@@ -277,7 +243,6 @@ public class UserHandler extends DefaultHandler{
     	}
     	
     	public String Search(String givenstring) {
-    		
     		String return_val = store.get_keywordreturn(store.find(givenstring));
     		return return_val;
     	}
@@ -293,7 +258,6 @@ public class UserHandler extends DefaultHandler{
     			for(List<String> iterator: mov.values()) {
     				for(String s:iterator) {
     					if (s.toLowerCase().contains(keyword.toLowerCase())||s.equalsIgnoreCase(keyword)) {
-    						//Moviesetreturn.put(i, mov);
     						count++;
     					}
     				}
@@ -316,25 +280,24 @@ public class UserHandler extends DefaultHandler{
     		for(Map<String, List<String>> mov:Moviesetreturn.values()) {
     			for(List<String> iterator: mov.values()) {
     				for(String s:iterator) {
-    					return_count.put(s,store.getIndex().get(s));
+    					if(store.getIndex().get(s)!=null) {
+    						return_count.put(s,store.getIndex().get(s));
+    					}
     				}
     			}
 
     		}
-    		System.out.println("KeyWord Count");
-    		for(String s:return_count.keySet()) {
-    			System.out.println(s+"\t"+return_count.get(s));
-    		}
+//    		System.out.println("KeyWord Count");
+//    		for(String s:return_count.keySet()) {
+//    			System.out.println(s+"\t"+return_count.get(s));
+//    		}
     		return return_count;
     	}
 
     	public void Prinit_Keyword_counts(){
     		Map<String,Integer> index = store.getIndex();
-    		//int i =0;
     		for(String key:index.keySet()) {
     			System.out.println(key+" "+index.get(key));
-    		//	i++;
-
     		}
 
     	}

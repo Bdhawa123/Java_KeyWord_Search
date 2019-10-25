@@ -155,7 +155,6 @@ public StoreClass() {
 			List<String> Genre = mov.get("Genre");
 			
 			for(String s:title) {
-				//System.out.println("Title"+s);
 				if (s!="") {
 				getString+="Title: "+s+"\n";
 				}
@@ -163,21 +162,19 @@ public StoreClass() {
 			
 			for(String s:Company) {
 				if (s!="") {
-				//System.out.println("Company"+s);
 				getString+="Company: "+s+"\n";
 				}
 			}
 			
 			for(String s:year) {
 				if (s!="") {
-				//System.out.println("Year"+s);
 				getString+="Year: "+s+"\n";
 				}
 			}
 			
 			for(String s:Rating) {
 				if (s!="") {
-				//System.out.println("Rating"+s);
+				
 				getString+="Rating: "+s+"\n";
 				}
 			}
@@ -191,49 +188,47 @@ public StoreClass() {
 			
 			for(String s:Keywords) {
 				if (s!="") {
-				//System.out.println("Keywords"+s);
 				getString+="Keywords: "+s+"\n";
 				}
 			}
 			
 			for(String s:Language) {
 				if (s!="") {
-				//System.out.println("Language"+s);
+				
 				getString+="Language: "+s+"\n";
 				}
 			}
 			
 			for(String s:Director_Name) {
 				if (s!="") {
-				//System.out.println("Director Name"+s);
+				
 				getString+="Director Name: "+s+"\n";
 				}
 			}
 			
 			for(String s:Direcror_Role) {
 				if (!s.equalsIgnoreCase("")) {
-				//System.out.println("Director Role"+s);
+				
 				getString+="Director Role: "+s+"\n";
 				}
 			}
 			
 			for(String s:Cast_Name) {
 				if (s!="") {
-				//System.out.println("Cast Name"+s);
+				
 				getString+="Cast Name: "+s+"\n";
 				}
 			}
 			
 			for(String s:Cast_Role) {
 				if (s!="") {
-				//System.out.println("Cast Role"+s);
+				
 				getString+="Cast Role: "+s+"\n";
 				}
 			}
 			
 			for(String s:Writer_Name) {
 				if (s!="") {
-				//System.out.println("Writer Name"+s);
 				getString+="Writer Name: "+s+"\n";
 				}
 			}
@@ -242,14 +237,12 @@ public StoreClass() {
 			
 			for(String s:Writer_Role) {
 				if (s!="") {
-				//System.out.println("Writer Role"+s);
 				getString+="Writer Role: "+s+"\n";
 				}
 			}
 			
 			for(String s:Genre) {
 				if (s!="") {
-				//System.out.println("Genre"+s);
 				getString+="Genre: "+s+"\n";
 				}
 			}
@@ -365,9 +358,8 @@ public StoreClass() {
 				val=true;
 			}
 				
-			//System.out.println(Character.getNumericValue(c));
 		}
-		//System.out.println(indexbuilder.toLowerCase());
+	
 		if(val) {
 			indexbuilder = indexbuilder.toLowerCase();
 			if (Index.isEmpty()) {
@@ -387,39 +379,4 @@ public StoreClass() {
 	
 	}
 		
-		
-//		else {
-//			System.out.println("Gets here");
-//			boolean find = false;
-//			for(IndexBuild ind:Index.values()) {
-//				System.out.println(ind.getKeyword());
-//				if(ind.getKeyword()==indexbuilder) {
-//					ind.addCount();
-//					find = true;
-//					System.out.println("Reachable code");
-//				}
-//			}
-//			if (find==false) {
-//				Index.put(indexbuilder, new IndexBuild(indexbuilder));
-//			}
-//		}
-	
-
-}
-
-class IndexBuild{
-	int count;
-	String Keyword;
-	public IndexBuild(String Keyword) {
-		this.Keyword = Keyword;
-		this.count =1;
-	}
-	
-	public String getKeyword() {
-		return Keyword;
-	}
-	
-	public void addCount() {
-		count++;
-	}
 }

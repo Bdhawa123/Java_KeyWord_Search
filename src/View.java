@@ -37,48 +37,9 @@ public class View {
 	private RadioButton top8RButton;
 	private RadioButton top10RButton;
 	public ToggleGroup groupRadioButton;
-	private int selectedRadioButtonValue ;
-	
-	
-	public int groupRadioButton() {
-//		RadioButton selectedRadioButton = (RadioButton) groupRadioButton.getSelectedToggle();
-//		return Integer.parseInt(selectedRadioButton.getId());
-		//RadioButton selectedRadioButton = (RadioButton) groupRadioButton.getSelectedToggle();
-		RadioButton radio= (RadioButton) groupRadioButton.getSelectedToggle();
-		if (radio !=null) {
-			System.out.println("radio button finally");
-			return getIntRadioGroup(radio.getText());
-			
-		}
-		else
-			return 5;
-	}
-	
-	public ToggleGroup getToggleGroup() {
-		return groupRadioButton;
-	}
-	
-	public int getIntRadioGroup(String value) {
-		if(value.equalsIgnoreCase("Top 3 correlated keywords"))
-		{
-			return 3;
-		}
-		else if (value.equalsIgnoreCase("Top 5 correlated keywords"))
-		{
-			return  5;
-		}
-		else if (value.equalsIgnoreCase("Top 8 correlated keywords"))
-		{
-			return 8;
-		}
-		else
-		{
-			return 10;
-		}
 		
-	}
 	
-	
+
 	public Label getLabelSource() {
 		return lblSource;
 	}
@@ -86,7 +47,6 @@ public class View {
 	public View() {
 		createAndConfigurePane();
 		createAndLayoutControls();
-		this.selectedRadioButtonValue = 0;
 	}
 
 	public Parent getParent(){
@@ -184,25 +144,7 @@ public class View {
 	 	top10RButton.setId("10");
 	 	top10RButton.setToggleGroup(groupRadioButton);
 
-	 	HBox vContainer = new HBox(top3RButton,top5RButton,top8RButton,top10RButton);
-	 	
-		//toggle listener for the radio button
-	 	
-//		groupRadioButton.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-//			@Override
-//			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
-//				RadioButton selectedRadioButton = (RadioButton) groupRadioButton.getSelectedToggle();
-//				if(selectedRadioButton != null)
-//				{
-//					String s = selectedRadioButton.getText();
-//					System.out.println(s);
-//					//radioButtonListener(s);
-//
-//				}
-//			}
-//		});
-
-	 
+	 	HBox vContainer = new HBox(top3RButton,top5RButton,top8RButton,top10RButton);	 
 
 	 	Bar_Chart= new Button("Bar Chart");
 	 	Pie_Chart= new Button("Pie Chart");
@@ -251,43 +193,9 @@ public class View {
 		Pie_Chart.setOnAction(listener);
 		
 	}
-	//set toggle for the Radio btn
 	public void SetRadioBtnListener(ChangeListener<Toggle> listener) {
-		//groupRadioButton.selectedToggleProperty().addListener(listener);
 		groupRadioButton.selectedToggleProperty().addListener(listener);
-		//RadioButton selectedRadioButton = (RadioButton) groupRadioButton.getSelectedToggle();
-		//System.out.println(selectedRadioButton.getText());
-	}
-	
-	
-	
-	
-
-	// getter method for returning the variable
-	public int getSelectedRadioButtonValue()
-	{
-		return  selectedRadioButtonValue;
-	}
-	// decide which radio button has selected and then sets the value to selectedradiobuttonvalue variable
-	public void radioButtonListener(String value)
-	{
-		if(value.equalsIgnoreCase("Top 3 correlated keywords"))
-		{
-			this.selectedRadioButtonValue = 3;
-		}
-		else if (value.equalsIgnoreCase("Top 5 correlated keywords"))
-		{
-			this.selectedRadioButtonValue = 5;
-		}
-		else if (value.equalsIgnoreCase("Top 8 correlated keywords"))
-		{
-			this.selectedRadioButtonValue = 8;
-		}
-		else
-		{
-			this.selectedRadioButtonValue = 10;
-		}
 		
-	}	
+	}
 	
 }
