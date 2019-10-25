@@ -367,18 +367,20 @@ public StoreClass() {
 				
 			//System.out.println(Character.getNumericValue(c));
 		}
+		//System.out.println(indexbuilder.toLowerCase());
 		if(val) {
-			System.out.println(indexbuilder);
+			indexbuilder = indexbuilder.toLowerCase();
 			if (Index.isEmpty()) {
 				
-				Index.put(indexbuilder.toLowerCase(), 1);
+				Index.put(indexbuilder, 1);
 			}
 			else {
-				if(!(Index.get(indexbuilder.toLowerCase())!=null)) {
+				if(Index.get(indexbuilder)==null) {
 					Index.put(indexbuilder, 1);
 				}
 				else {
-					Index.put(indexbuilder, Index.get(indexbuilder)+1);
+					int newindex = Index.get(indexbuilder)+1;
+					Index.put(indexbuilder, newindex);
 				}
 			}
 		}

@@ -11,9 +11,12 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import org.xml.sax.SAXException;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
@@ -47,6 +50,26 @@ public class Controller {
         	controllerview.getTextArea().setText(setSearchresult);
 
         });
+        
+       
+        controllerview.SetRadioBtnListener(controllermodel.RadioBtn(controllerview.groupRadioButton()));
+        		
+        		
+//			@Override
+//			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
+//				RadioButton selectedRadioButton = (RadioButton) groupRadioButton.getSelectedToggle();
+//				if(selectedRadioButton != null)
+//				{
+//					String s = selectedRadioButton.getText();
+//					radioButtonListener(s);
+//
+//				}
+//			}
+//		});
+        	
+       
+        
+
         
         controllerview.BarGraph(e->{
         	String setSearchresult = controllerview.getTxtInp().getText();

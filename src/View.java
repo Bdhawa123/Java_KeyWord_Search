@@ -39,6 +39,34 @@ public class View {
 	private ToggleGroup groupRadioButton;
 	private int selectedRadioButtonValue ;
 	
+	
+	public int groupRadioButton() {
+//		RadioButton selectedRadioButton = (RadioButton) groupRadioButton.getSelectedToggle();
+//		return Integer.parseInt(selectedRadioButton.getId());
+		return 1;
+	}
+	
+	public int getIntRadioGroup(String value) {
+		if(value.equalsIgnoreCase("Top 3 correlated keywords"))
+		{
+			return 3;
+		}
+		else if (value.equalsIgnoreCase("Top 5 correlated keywords"))
+		{
+			return  5;
+		}
+		else if (value.equalsIgnoreCase("Top 8 correlated keywords"))
+		{
+			return 8;
+		}
+		else
+		{
+			return 10;
+		}
+		
+	}
+	
+	
 	public Label getLabelSource() {
 		return lblSource;
 	}
@@ -125,24 +153,29 @@ public class View {
 		groupRadioButton = new ToggleGroup();
 
 	 	top3RButton= new RadioButton();
+	 	top3RButton.setId("3");
 	 	top3RButton.setText("Top 3 correlated keywords");
 	 	top3RButton.setToggleGroup(groupRadioButton);
 
 	 	top5RButton = new RadioButton();
+	 	top5RButton.setId("5");
 	 	top5RButton.setText("Top 5 correlated keywords");
 	 	top5RButton.setToggleGroup(groupRadioButton);
 
 	 	top8RButton = new RadioButton();
+	 	top8RButton.setId("8");
 	 	top8RButton.setText("Top 8 correlated keywords");
 	 	top8RButton.setToggleGroup(groupRadioButton);
 
 	 	top10RButton = new RadioButton();
 	 	top10RButton.setText("Top 10 correlated keywords");
+	 	top10RButton.setId("10");
 	 	top10RButton.setToggleGroup(groupRadioButton);
 
 	 	VBox vContainer = new VBox(top3RButton,top5RButton,top8RButton,top10RButton);
-
-	 	//toggle listener for the radio button
+	 	
+		//toggle listener for the radio button
+	 	
 		groupRadioButton.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			@Override
 			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
@@ -155,6 +188,8 @@ public class View {
 				}
 			}
 		});
+
+	 
 
 	 	Bar_Chart= new Button("Bar Chart");
 	 	Pie_Chart= new Button("Pie Chart");
@@ -203,6 +238,17 @@ public class View {
 		Pie_Chart.setOnAction(listener);
 		
 	}
+	//set toggle for the Radio btn
+	public void SetRadioBtnListener(ChangeListener<Toggle> listener) {
+		groupRadioButton.selectedToggleProperty().addListener(listener);
+	}
+	
+	public void SetRadioBtnListener(EventHandler<ActionEvent> listener) {
+		groupRadioButton.addListener(listener);
+	}
+	
+	
+	
 
 	// getter method for returning the variable
 	public int getSelectedRadioButtonValue()
@@ -228,63 +274,7 @@ public class View {
 		{
 			this.selectedRadioButtonValue = 10;
 		}
-	}
-
-
-	// @Override
-	// public void start(Stage stage)throws Exception{
 		
-	// 	Button btnSource = new Button("Choose Source");
-	// 	Label lblSource = new Label("");
-	// 	HBox hboxSource = new HBox(btnSource,lblSource );
-				
-			
-	
-	// 	//File open to set source
-	// 	btnSource.setOnAction(event->{
-	// 		FileChooser file = new FileChooser();
-	// 		file.setTitle("Open File");
-	// 		selectedFile = file.showOpenDialog(stage);
-	// 		lblSource.setText(selectedFile.getName());
-			
-	// 	});
-		
-		
-	// 	Button btnSearch = new Button("Load Text");
-	// 	btnSearch.setMinWidth(100);
-		
-		
-	// 	btnSearch.setOnAction(event->{
-			
-	// 	});
-		
-		
-		
-	// 	HBox hbox = new HBox(btnSearch);
-	// 	hbox.setAlignment(Pos.CENTER); 
-		
-	// 	TextArea txtR = new TextArea();
-	// 	txtR.setText(selectedFile.getName());
-		
-	// 	grdPane.setPadding(new Insets(10,10,10,10));
-	// 	grdPane.setMinSize(10, 60);
-	// 	grdPane.setHgap(60);
-	// 	grdPane.setVgap(90);
-	// 	grdPane.setAlignment(Pos.CENTER);
-		
-	// 	grdPane.addRow(0,hboxSource);
-	// 	grdPane.addRow(1,hbox);
-	// 	grdPane.addRow(2, txtR);
-				
-	// 	Scene scene = new Scene(grdPane,500,600);
-	// 	stage.setScene(scene);
-	// 	stage.setTitle("Open File System");
-	// 	stage.show();
-	// }
-	
-	// public void start() {
-	// 	launch();
-	// }
-	
+	}	
 	
 }

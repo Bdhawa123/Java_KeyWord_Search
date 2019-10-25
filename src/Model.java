@@ -8,6 +8,8 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Side;
@@ -15,6 +17,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Toggle;
 import javafx.scene.chart.PieChart;
 
 public class Model {
@@ -157,6 +160,26 @@ public class Model {
 		piChart.setTitle("Keywords in Movies"+search);
 
 		return  piChart;
+	}
+	
+	//radio btn 
+	public ChangeListener<Toggle> RadioBtn(int selectedno) {
+		System.out.println("selected no "+ selectedno);
+		 ChangeListener<Toggle> ChangeListener = new  ChangeListener<Toggle>() {
+			 
+			@Override
+			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
+//				RadioButton selectedRadioButton = (RadioButton) groupRadioButton.getSelectedToggle();
+//				if(selectedRadioButton != null)
+//				{
+//					String s = selectedRadioButton.getText();
+//					radioButtonListener(s);
+//
+//				}
+			}
+		};
+		
+		return ChangeListener;
 	}
 	
 	

@@ -13,7 +13,7 @@ public class main extends Application {
 			View view = new View();	
 			Model mod = new Model();
 			Controller control = new Controller(view,mod,stage);
-			
+				
 			Scene scene = new Scene(view.getParent(),500,600);
 			stage.setScene(scene);
 			stage.setTitle("Open File System");
