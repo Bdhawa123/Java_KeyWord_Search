@@ -17,6 +17,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.chart.PieChart;
 
@@ -25,9 +26,15 @@ public class Model {
 	SAXParserFactory factory = SAXParserFactory.newInstance();
 	SAXParser saxParser;
 	UserHandler userhandler = new UserHandler();
+	private int keyword_occurence = 0;
 	private Map<String,Integer> ret_search;
 	private  Map<String,Integer> data;
-
+	
+	
+	public void setgetKeyword_occ(String string) {
+		keyword_occurence= Integer.parseInt(string);
+	}
+	
 	public File getFile() {
 		return selectedFile;
 	}
@@ -163,19 +170,13 @@ public class Model {
 	}
 	
 	//radio btn 
-	public ChangeListener<Toggle> RadioBtn(int selectedno) {
-		System.out.println("selected no "+ selectedno);
+	public ChangeListener<Toggle> RadioBtn() {
+		
 		 ChangeListener<Toggle> ChangeListener = new  ChangeListener<Toggle>() {
-			 
-			@Override
+			 @Override
 			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
-//				RadioButton selectedRadioButton = (RadioButton) groupRadioButton.getSelectedToggle();
-//				if(selectedRadioButton != null)
-//				{
-//					String s = selectedRadioButton.getText();
-//					radioButtonListener(s);
-//
-//				}
+					RadioButton lsd = (RadioButton)newValue.getToggleGroup().getSelectedToggle();
+					System.out.println(lsd.getId());
 			}
 		};
 		

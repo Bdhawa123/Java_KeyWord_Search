@@ -51,9 +51,32 @@ public class Controller {
 
         });
         
-       
-        controllerview.SetRadioBtnListener(controllermodel.RadioBtn(controllerview.groupRadioButton()));
-        		
+      
+        controllerview.SetRadioBtnListener(new  ChangeListener<Toggle>() {
+			 @Override
+			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
+					RadioButton ID = (RadioButton)newValue.getToggleGroup().getSelectedToggle();
+					controllermodel.setgetKeyword_occ(ID.getId());
+			}
+		});
+//        controllerview.SetRadioBtnListener(new  ChangeListener<Toggle>() {
+//			 @Override
+//			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
+//				 System.out.println("selected no ");
+//					System.out.println("Selected");
+//					RadioButton lsd = (RadioButton)newValue.getToggleGroup().getSelectedToggle();
+//					System.out.println(lsd.getId());
+//					//RadioButton selectedRadioButton = (RadioButton) groupRadioButton.getSelectedToggle();
+//				
+////				RadioButton selectedRadioButton = (RadioButton) groupRadioButton.getSelectedToggle();
+////				if(selectedRadioButton != null)
+////				{
+////					String s = selectedRadioButton.getText();
+////					radioButtonListener(s);
+////
+////				}
+//			}
+//        });
         		
 //			@Override
 //			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {

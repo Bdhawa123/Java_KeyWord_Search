@@ -36,14 +36,26 @@ public class View {
 	private RadioButton top5RButton;
 	private RadioButton top8RButton;
 	private RadioButton top10RButton;
-	private ToggleGroup groupRadioButton;
+	public ToggleGroup groupRadioButton;
 	private int selectedRadioButtonValue ;
 	
 	
 	public int groupRadioButton() {
 //		RadioButton selectedRadioButton = (RadioButton) groupRadioButton.getSelectedToggle();
 //		return Integer.parseInt(selectedRadioButton.getId());
-		return 1;
+		//RadioButton selectedRadioButton = (RadioButton) groupRadioButton.getSelectedToggle();
+		RadioButton radio= (RadioButton) groupRadioButton.getSelectedToggle();
+		if (radio !=null) {
+			System.out.println("radio button finally");
+			return getIntRadioGroup(radio.getText());
+			
+		}
+		else
+			return 5;
+	}
+	
+	public ToggleGroup getToggleGroup() {
+		return groupRadioButton;
 	}
 	
 	public int getIntRadioGroup(String value) {
@@ -172,22 +184,23 @@ public class View {
 	 	top10RButton.setId("10");
 	 	top10RButton.setToggleGroup(groupRadioButton);
 
-	 	VBox vContainer = new VBox(top3RButton,top5RButton,top8RButton,top10RButton);
+	 	HBox vContainer = new HBox(top3RButton,top5RButton,top8RButton,top10RButton);
 	 	
 		//toggle listener for the radio button
 	 	
-		groupRadioButton.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-			@Override
-			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
-				RadioButton selectedRadioButton = (RadioButton) groupRadioButton.getSelectedToggle();
-				if(selectedRadioButton != null)
-				{
-					String s = selectedRadioButton.getText();
-					radioButtonListener(s);
-
-				}
-			}
-		});
+//		groupRadioButton.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+//			@Override
+//			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
+//				RadioButton selectedRadioButton = (RadioButton) groupRadioButton.getSelectedToggle();
+//				if(selectedRadioButton != null)
+//				{
+//					String s = selectedRadioButton.getText();
+//					System.out.println(s);
+//					//radioButtonListener(s);
+//
+//				}
+//			}
+//		});
 
 	 
 
@@ -209,7 +222,7 @@ public class View {
 		view.addRow(2, TextField);
 		view.addRow(3,hbox);
 		view.addRow(4, txtR);
-		view.addRow(5, vContainer  );
+		view.addRow(5, vContainer);
 		view.addRow(6, ChartRow);
 		
 	}
@@ -240,12 +253,12 @@ public class View {
 	}
 	//set toggle for the Radio btn
 	public void SetRadioBtnListener(ChangeListener<Toggle> listener) {
+		//groupRadioButton.selectedToggleProperty().addListener(listener);
 		groupRadioButton.selectedToggleProperty().addListener(listener);
+		//RadioButton selectedRadioButton = (RadioButton) groupRadioButton.getSelectedToggle();
+		//System.out.println(selectedRadioButton.getText());
 	}
 	
-	public void SetRadioBtnListener(EventHandler<ActionEvent> listener) {
-		groupRadioButton.addListener(listener);
-	}
 	
 	
 	
