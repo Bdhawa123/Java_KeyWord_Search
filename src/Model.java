@@ -107,7 +107,7 @@ public class Model {
 		BarchartBuilder.setTitle("Keyword "+search+" Occurences");
 
 
-		for (int i = 0; i<times ; i++ ) {
+		for ( int i = keywordList.size()-1; i >(keywordList.size()-(times+1)); i--  ) {
 
 			Integer ld = data.get(keywordList.get(i).trim());
 			if (ld!=null) {
@@ -146,7 +146,7 @@ public class Model {
 		ObservableList ListData = FXCollections.observableArrayList();
 
 
-		for ( int i = 0; i<counts; i++ ) {
+		for ( int i = keywordList.size()-1; i >(keywordList.size()-(counts+1)); i-- ) {
 			Integer ld = data.get(keywordList.get(i).trim());
 			if (ld!=null) {
 				ListData.add(new PieChart.Data(keywordList.get(i),ld));
