@@ -6,17 +6,24 @@ import java.util.Map;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-
+/**
+ * Parse XML file and store them in an index
+ * 
+ * @author Binay
+ *
+ */
 public class UserHandler extends DefaultHandler{
 	boolean director = false;
 	boolean genres = false;
 	boolean writer = false;
 	boolean cast = false;
 	StoreClass store ;
-	
 	private String name = "";
 	private int moviecount = 0;
 	
+	/**
+	 * Constructor for UserHandler
+	 */
 	public UserHandler() {
 		store = new StoreClass();
 		
@@ -24,20 +31,14 @@ public class UserHandler extends DefaultHandler{
 	
     @Override
 	   public void startElement( String uri, String localName, String qName, Attributes attributes)
-	      throws SAXException {    	
+	      throws SAXException { 
     	switch(qName){
     	case "movie":
     		name ="movie";
     		moviecount++;
     		break;
-    	case "year":
-    		name ="year";
-    		break;
-    	case "title":
-    		name ="title";
-    		break;
-    	case "rating":
-    		name ="rating";
+    	case "year": case "title": case "rating":case "country":case "language": case "company":case "kw":case "name":case "role": case "item":
+    		name =qName;
     		break;
     	case "director":
     		name ="director";
@@ -51,190 +52,131 @@ public class UserHandler extends DefaultHandler{
     		name ="writer";
     		writer = true;
     		break;
-    	case "country":
-    		name ="country";
-    		break;
-    	case "language":
-    		name ="language";
-    		break;
-    	case "company":
-    		name ="company";
-    		break;
     	case "cast":
     		name ="cast";
     		cast = true;
     		break;
-    	case "kw":
-    		name ="kw";
-    		break;
-    	case "name":
-    		name ="name";
-    		break;
-    	case "role":
-    		name="role";
-    		break;
-    	case "item":
-    		name = "item";
-    		break;
-    	}
- 
+    	} 
     	
     }
     
     @Override
 	   public void characters(char ch[], int start, int length) throws SAXException {
     	String getString = new String(ch,start,length);
+    	
 		if(getString.trim()!=""||getString.trim()==null) {
 			store.createIndex(getString);
-
 		}
-    	switch(name){
-    	
-    	case "movie":
-    		name="";
-    		break;
-    	case "year":
-    		store.add_Year(getString);
-    		name="";
-    		break;
-    	case "title":
-    		store.add_Title(getString);
-    		name="";
-    		break;
-    	case "rating":
-    		store.add_Rating(getString);
-    		name="";
-    		break;
-    	case "director":
-    		name="";
-    		break;
-    	case "genres":
-    		name="";
-    		break;
-    	case "writer":
-    		name="";
-    		break;
-    	case "country":
-    		store.add_Country(getString);
-    		name="";
-    		break;
-    	case "language":
-    		name="";
-    		break;
-    	case "company":
-    		
-    		store.add_Company(getString);
-    		name="";
-    		break;
-    	case "cast":
-    		name="";
-    		break;
-    	case "kw":
-    		store.add_Keyword(getString);
-    		name="";
-    		break; 
-    		
-    	case "name":
-    		if(director) {
-    			
-    			store.add_Director_Name(getString);
-    		}else
-			if(writer) {
-			
-				store.add_WriterName(getString);
-				
-			}else
-    		if(cast) {
-    			store.add_CastName(getString);
-    			
-    		}
-    		
-    		name="";
-    		break;
-    		
-    		
-    	case "role":
-    		if (director) {
-    			//System.out.println("Role:"+new String(ch,start,length));
-    			store.add_Director_Role(getString);
-    			//store.getDirectorRole().add(getString);
-    		}else
-			if(writer) {
-				//System.out.println("Writer role:"+new String(ch,start,length));
-				store.add_WriterName(getString);
-				//store.getWriterRole().add(getString);
-			}else
-    		if(cast) {
-    			//System.out.println("Cast role:"+new String(ch,start,length));
-    			store.add_CastRole(getString);
-    			
-    		}
-    		name="";
-    		break;
-    	case "item":
-    		if(genres) {
-    			store.add_Genre(getString);
-    		}
-    		name="";
-    		break;
-    	
-    	}
-    	
+		
+		
+		switch(name){
+			case "director": case "genres": case "writer":case "language": case "cast":
+	    		name="";
+	    		break;
+	    		
+	    	case "movie":
+	    		name="";
+	    		break;
+	    		
+	    	case "year":
+	    		store.add_Year(getString);
+	    		name="";
+	    		break;
+	    		
+	    	case "title":
+	    		store.add_Title(getString);
+	    		name="";
+	    		break;
+	    		
+	    	case "rating":
+	    		store.add_Rating(getString);
+	    		name="";
+	    		break;
+	    	
+	    	case "country":
+	    		store.add_Country(getString);
+	    		name="";
+	    		break;
+	    		
+	    	case "company":
+	    		store.add_Company(getString);
+	    		name="";
+	    		break;
+	    		
+	    	case "kw":
+	    		store.add_Keyword(getString);
+	    		name="";
+	    		break; 
+	    		
+	    	case "name":
+	    		if(director) {
+	    			store.add_Director_Name(getString);
+	    		}else
+				if(writer) {
+					store.add_WriterName(getString);			
+				}else
+	    		if(cast) {
+	    			store.add_CastName(getString);	
+	    		}
+	    		name="";
+	    		break;
+	    		
+	    	case "role":
+	    		if (director) {
+	    			store.add_Director_Role(getString);
+	    		}else
+				if(writer) {
+					store.add_WriterName(getString);
+				}else
+	    		if(cast) {
+	    			store.add_CastRole(getString);
+	    		}
+	    		name="";
+	    		break;
+	    		
+	    	case "item":
+	    		if(genres) {
+	    			store.add_Genre(getString);
+	    		}
+	    		name="";
+	    		break;
+		}    	
     }
    
     @Override
 	   public void endElement(String uri, String localName, String qName) throws SAXException {
-
-    	switch(qName){
     	
+    	switch(qName){
+	    	
 	    	case "movie":
 	    		store.fillAddMovie();
 	    		store.AddIntoMovie(moviecount);
 	    		break;		    		
-	    	case "year":
-	    		
-	    		break;
-	    		
-	    	case "title":
-	    		
-	    		break;
-	    		
-	    	case "rating":
-	    		
+	    	case "year":case "title":case "rating":case "country":case "language":case "company":case "keyword":case "name":
 	    		break;
 	    	case "director":
 	    		director = false;
 	    		break;
 	    	case "genres":
-	    		genres= false;
-	    		
+	    		genres= false; 		
 	    		break;
 	    	case "writer":
 	    		writer = false;
-	    		
-	    		break;
-	    	case "country":
-	    		
-	    		break;
-	    	case "language":
-	    		
-	    		break;
-	    	case "company":
-	    		
 	    		break;
 	    	case "cast":
 	    		cast = false;
-	    		
 	    		break;
-	    	case "keyword":
-	    		
-	    		break;
-	    	case "name":
-	    		
-	    		break;	    
 	    	}	     
-		   }
+	   }
+
+    	
+   
     
+    	/**
+    	 * Returns the Parsed file database in a user readable format
+    	 * 
+    	 * @return String 
+    	 */
     	public String Show_String() {
     		store.get_keywordreturn(store.getMovieset());
     		String file = store.get_keywordreturn(store.getMovieset());
@@ -242,11 +184,23 @@ public class UserHandler extends DefaultHandler{
 
     	}
     	
+    	/**
+    	 * Returns the String of parsed file data that contains the find keyword 
+    	 * 
+    	 * @param givenstring keyword to search for within the database
+    	 * @return String
+    	 */
     	public String Search(String givenstring) {
     		String return_val = store.get_keywordreturn(store.find(givenstring));
     		return return_val;
     	}
     	
+    	/**
+    	 * Returns HashMap of the found keyword 
+    	 *  
+    	 * @param keyword User Input String for finding keyword
+    	 * @return Map HashMap containing movies that contain the given keyword
+    	 */
     	public Map<String,Integer> getCount(String keyword) {
     		
     		int count; int i=0;
@@ -272,8 +226,15 @@ public class UserHandler extends DefaultHandler{
     		
     		return return_count;
     	}
-
+    	
+    	
+    	/**
+    	 * Returns HashMap of the found keyword with their occurences in the file
+    	 * @param keyword UserInput Keyword
+    	 * @return Map A HashMap
+    	 */
     	public  Map<String,Integer> KeywordCount(String keyword) {
+    		
     		Map<Integer, Map<String, List<String>>> Moviesetreturn = store.find(keyword);
     		Map<String,Integer> return_count= new HashMap<String, Integer>();
 
@@ -285,26 +246,9 @@ public class UserHandler extends DefaultHandler{
     					}
     				}
     			}
-
     		}
-//    		System.out.println("KeyWord Count");
-//    		for(String s:return_count.keySet()) {
-//    			System.out.println(s+"\t"+return_count.get(s));
-//    		}
     		return return_count;
     	}
-
-    	public void Prinit_Keyword_counts(){
-    		Map<String,Integer> index = store.getIndex();
-    		for(String key:index.keySet()) {
-    			System.out.println(key+" "+index.get(key));
-    		}
-
-    	}
-		public Map<String,Integer> getKeywordsDeatil()
-		{
-			return  store.getIndex();
-		}
-
+    	
 
 }

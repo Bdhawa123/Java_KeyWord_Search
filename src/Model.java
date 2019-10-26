@@ -83,12 +83,6 @@ public class Model {
 		 ret_search = userhandler.getCount(search);
 		return userhandler.Search(search);
 	}
-
-	public Map<String,Integer> getKeywordsData()
-	{
-		 data = userhandler.getKeywordsDeatil();
-		return data;
-	}
 	         
 
   

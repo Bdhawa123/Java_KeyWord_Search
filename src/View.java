@@ -21,6 +21,12 @@ import java.awt.Graphics2D;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+
+/**
+ * View for the program
+ * 
+ * @author Binay Dhawa
+ */
 public class View {
 	private GridPane view;
 	private Button ChooseXML;
@@ -39,44 +45,93 @@ public class View {
 	public ToggleGroup groupRadioButton;
 		
 	
-
+	/**
+	 * Returns Label to Set for Movie Name
+	 * @return Label
+	 */
 	public Label getLabelSource() {
 		return lblSource;
 	}
+	
+	/**
+	 * 	Create initial view
+	 */
 	
 	public View() {
 		createAndConfigurePane();
 		createAndLayoutControls();
 	}
 
+	
+	/**
+	 * Get the Current view
+	 * 
+	 * @return Selected view return
+	 */
 	public Parent getParent(){
 		return view;
 	}
 	
+	/**
+	 * Get the Selected Text Area
+	 * 
+	 * @return Selected TextArea
+	 */
 	public TextArea getTextArea() {
 		return txtR;
 	}
-	
+
+	/**
+	 * Return the User Text Input
+	 * 
+	 * @return Text Input 
+	 */
 	public TextField getTxtInp() {
 		return txtInp;
 	}
-
+	
+	/**
+	 * Set desired string on the text area
+	 * 
+	 * @param txtInp Set string on the Text field 
+	 */
 	public void setTxtInp(TextField txtInp) {
 		this.txtInp = txtInp;
 	}
 	
+
+	/**
+	 * 
+	 * @return Get the Bar_Chart
+	 */
 	public Button getBar_Chart() {
 		return Bar_Chart;
 	}
-
+	
+	/**
+	 * Allows to alter the design of the Barchart to be built
+	 * 
+	 * @param bar_Chart Set the BarChart to the View
+	 */
 	public void setBar_Chart(Button bar_Chart) {
 		Bar_Chart = bar_Chart;
 	}
-
+	
+	/**
+	 * Returns the selected Pie Chart
+	 * 
+	 * @return PieChart
+	 */
 	public Button getPie_Chart() {
 		return Pie_Chart;
 	}
-
+	
+	
+	/**
+	 * Set Pie Chart at output
+	 * 
+	 * @param pie_Chart Set the desired Pie Chart on Output
+	 */
 	public void setPie_Chart(Button pie_Chart) {
 		Pie_Chart = pie_Chart;
 	}
@@ -84,7 +139,9 @@ public class View {
 	
 
 	
-	
+	/**
+	 * Create initial layout for the GUI
+	 */
 	public void createAndConfigurePane() {
 		view = new GridPane();
 		view.setPadding(new Insets(10,10,10,10));
@@ -94,16 +151,25 @@ public class View {
 		view.setAlignment(Pos.CENTER);			
 	}
 	
+	/**
+	 * Set the desired Root to the layout
+	 * 
+	 * @param root Root Consisting of either bar or Pie Chart 
+	 */
 	public void create_BarGraph(Group root ) {
 		
 		Scene sc = new Scene(root,500,400);
 		StageChart = new Stage();
-		StageChart.setTitle("Bar-Chart");
+		StageChart.setTitle("Chart");
 		StageChart.setScene(sc);
 		StageChart.show();
 		
 	}
 	
+	
+	/**
+	 * Create configuration panels and buttons for the GUI
+	 */
 	public void createAndLayoutControls() {
 
 		ChooseXML= new Button("Choose XML file");
@@ -168,31 +234,62 @@ public class View {
 		view.addRow(6, ChartRow);
 		
 	}
-    public String radioButtonAction(ActionEvent action)
-	{
-		return groupRadioButton.getSelectedToggle().getUserData().toString();
-	}
+	
+	/**
+	 * Add Event Handler to the Button ChooseXML
+	 * 
+	 * @param listener EventHandler to bind to button
+	 */
 	public void addFileListener(EventHandler<ActionEvent> listener){
 		ChooseXML.setOnAction(listener);
 	}
 	
+	/**
+	 * Add Event Handler to the Button LoadXML for loading xml file
+	 * 
+	 * @param listener EventHandler to bind to button
+	 */
 	public void addFileOpenListener(EventHandler<ActionEvent> listener) {
 		LoadXML.setOnAction(listener);
 		
 	}
 	
+	
+	/**
+	 * Add Event Handler to the Button Search Button
+	 * 
+	 * @param listener EventHandler to bind to button
+	 */
 	public void addSearchListener(EventHandler<ActionEvent> listener) {
 		Search.setOnAction(listener);
 		
 	}
+	
+	/**
+	 * Add Event Handler to the Button Bar Chart Button
+	 * 
+	 * @param listener EventHandler to bind to button
+	 */
 	public void BarGraph(EventHandler<ActionEvent> listener) {
 		Bar_Chart.setOnAction(listener);
 		
 	}
+	
+	/**
+	 * Add Event Handler to the Button Pie Chart Button
+	 * 
+	 * @param listener EventHandler to bind to button
+	 */
 	public void PieChart(EventHandler<ActionEvent> listener) {
 		Pie_Chart.setOnAction(listener);
 		
 	}
+	
+	/**
+	 * Add Event Handler to the Radio Button for toggling functionality
+	 * 
+	 * @param listener ChangeListener to bind to button
+	 */
 	public void SetRadioBtnListener(ChangeListener<Toggle> listener) {
 		groupRadioButton.selectedToggleProperty().addListener(listener);
 		

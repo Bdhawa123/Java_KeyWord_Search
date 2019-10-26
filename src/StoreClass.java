@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,7 @@ public class StoreClass {
 
 	Map<String, List<String>> Movie = new HashMap<String, List<String>>();
 	Map<Integer,Map<String,List<String>>> Movieset= new HashMap<Integer,Map<String,List<String>>>();
+	String[] ignoreStrings = {"(screenplay)","(novel)","(written by)","(story)"};
 	
 	
 public StoreClass() {
@@ -43,6 +45,7 @@ public StoreClass() {
 		WriterName = new ArrayList<String>();
 		WriterRole = new ArrayList<String>();
 		Index = new HashMap<String,Integer>();
+		
 		
 	}
 	
@@ -108,11 +111,9 @@ public StoreClass() {
 		return Movieset;
 	}
 	
-
-	public boolean search(String contains) {
-		boolean return_val = false;
-		return return_val;
-	}
+	public Map<String, List<String>> getMovie() {
+		return Movie;
+	}	
 	
 	
 	public Map<Integer,Map<String,List<String>>> find(String keyword) {
@@ -159,7 +160,6 @@ public StoreClass() {
 				getString+="Title: "+s+"\n";
 				}
 			}
-			
 			for(String s:Company) {
 				if (s!="") {
 				getString+="Company: "+s+"\n";
@@ -290,64 +290,6 @@ public StoreClass() {
 		Movie =new HashMap<String, List<String>>();
 	}
 	
-	public Map<String, List<String>> getMovie() {
-		return Movie;
-	}
-
-	public List<String> getTitle() {
-		return Title;
-	}
-	
-	public List<String> getYear() {
-		return Year;
-	}
-	
-	public List<String> getRating() {
-		return Rating;
-	}
-	
-	public List<String> getCountry() {
-		return Country;
-	}
-	
-	public List<String> getLanguage() {
-		return Language;
-	}
-	
-	public List<String> getCompany() {
-		return Company;
-	}
-	
-	public List<String> getKeyword() {
-		return Keyword;
-	}
-	
-		
-	public List<String> getDirectorName() {
-		return DirectorName;
-	}
-
-	
-	
-	public List<String> getDirectorRole() {
-		return DirectorRole;
-	}
-
-	public List<String> getCastName() {
-		return CastName;
-	}
-
-	public List<String> getCastRole() {
-		return CastRole;
-	}
-	
-	public List<String> getWriterName() {
-		return WriterName;
-	}
-
-	public List<String> getWriterRole() {
-		return WriterRole;
-	}
 	
 	
 	public void createIndex(String indexbuilder) {
@@ -359,20 +301,24 @@ public StoreClass() {
 			}
 				
 		}
-	
 		if(val) {
-			indexbuilder = indexbuilder.toLowerCase();
-			if (Index.isEmpty()) {
-				
-				Index.put(indexbuilder, 1);
-			}
-			else {
-				if(Index.get(indexbuilder)==null) {
+			if(Arrays.stream(ignoreStrings).anyMatch(indexbuilder::equals)) {
+				val =false;
+			}		
+			if(val) {
+				indexbuilder = indexbuilder.toLowerCase();
+				if (Index.isEmpty()) {
+					
 					Index.put(indexbuilder, 1);
 				}
 				else {
-					int newindex = Index.get(indexbuilder)+1;
-					Index.put(indexbuilder, newindex);
+					if(Index.get(indexbuilder)==null) {
+						Index.put(indexbuilder, 1);
+					}
+					else {
+						int newindex = Index.get(indexbuilder)+1;
+						Index.put(indexbuilder, newindex);
+					}
 				}
 			}
 		}
