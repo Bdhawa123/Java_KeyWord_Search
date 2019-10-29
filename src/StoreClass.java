@@ -4,6 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Class to Build Index and Variables for all the keyword in the document
+ * 
+ * @author Binay
+ *
+ */
 public class StoreClass {
 	private List<String> Title;
 	private List<String> Year;
@@ -28,6 +34,9 @@ public class StoreClass {
 	String[] ignoreStrings = {"(screenplay)","(novel)","(written by)","(story)"};
 	
 	
+	/**
+	 * Constructor for the class that initializes the variables
+	 */
 public StoreClass() {
 		
 		Title= new ArrayList<String>();
@@ -115,7 +124,11 @@ public StoreClass() {
 		return Movie;
 	}	
 	
-	
+	/**
+	 * Find and return a HashMap containing the given keyword
+	 * @param keyword Find a keyword on the Whole List contained of Movies
+	 * @return The build HashMap containing all the movies that contains the keyword
+	 */
 	public Map<Integer,Map<String,List<String>>> find(String keyword) {
 		int i = 0; count=0;
 		Map<Integer,Map<String,List<String>>> Moviesetreturn=new HashMap<Integer,Map<String,List<String>>>();;
@@ -134,6 +147,11 @@ public StoreClass() {
 		return Moviesetreturn;
 	}
 	
+	/**
+	 * Iterate a HashMap into a String that follows IMDB xml pattern but interprets in user readable form
+	 * @param Moviesreturn HashMap to turn into a String
+	 * @return String	
+	 */
 	public String get_keywordreturn(Map<Integer,Map<String,List<String>>> Moviesreturn) {
 		int i = 0;
 		String getString ="";
@@ -173,8 +191,7 @@ public StoreClass() {
 			}
 			
 			for(String s:Rating) {
-				if (s!="") {
-				
+				if (s!="") {		
 				getString+="Rating: "+s+"\n";
 				}
 			}
@@ -253,6 +270,9 @@ public StoreClass() {
 		
 	}
 	
+	/**
+	 * Put values inside a Movie Map
+	 */
 	public void fillAddMovie() {
 		Movie.put("Title",Title);
 		Movie.put("Year",Year);
@@ -285,13 +305,21 @@ public StoreClass() {
 		WriterRole = new ArrayList<String>();
 	}
 	
+	/**
+	 * Adds a movie into a movieset
+	 * 
+	 * @param movie Movie to add into a MovieSet
+	 */
 	public void AddIntoMovie(Integer movie) {
 		Movieset.put(movie, Movie);
 		Movie =new HashMap<String, List<String>>();
 	}
 	
 	
-	
+	/**
+	 * Build Index for the file
+	 * @param indexbuilder Create an index for the given value
+	 */
 	public void createIndex(String indexbuilder) {
 		char[] ch = indexbuilder.toCharArray();
 		boolean val = false;

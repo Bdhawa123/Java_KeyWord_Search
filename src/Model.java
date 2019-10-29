@@ -30,7 +30,12 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.chart.PieChart;
-
+/**
+ * Model of the class
+ * 
+ * @author Binay	
+ *
+ */
 public class Model {
 	File selectedFile = new File("");
 	SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -40,21 +45,38 @@ public class Model {
 	private Map<String,Integer> ret_search;
 	private  Map<String,Integer> data;
 	
-	
+	/**
+	 * Set the no of count of the chart legends
+	 * 
+	 * @param string Set the number of different category to be drawn on the chart
+	 */
 	public void setgetKeyword_occ(String string) {
 		keyword_occurence= Integer.parseInt(string);
 	}
 	
+	
+	/**
+	 * Get the selected file by user 
+	 * @return file
+	 */
 	public File getFile() {
 		return selectedFile;
 	}
 	
+	/**
+	 * Update variable of fileselect 
+	 * 
+	 * @param fileselect file
+	 */
 	public void SetFile(File fileselect) {
 		selectedFile= fileselect;
 	}
 	
 	
-	
+	/**
+	 * Set up parser and for the selected file
+	 * and parse
+	 */
 	public void ParseXML() {
 		
 		try {
@@ -73,11 +95,21 @@ public class Model {
 		}
 		
 	}
-	
+	/**
+	 * Return String
+	 * 
+	 * @return String Show the String that contains all parsed file
+	 */
 	public String ReturnString() {
 		return userhandler.Show_String();
 	}
 	
+	/**
+	 * Search for the keyword and return a string
+	 * 
+	 * @param search Search keyword
+	 * @return String Show String that contains all the String value
+	 */
 	public String Search_String(String search) {
 		
 		 ret_search = userhandler.getCount(search);
@@ -86,7 +118,11 @@ public class Model {
 	         
 
   
-	
+	/**
+	 * Build Barchart
+	 * @param search Keyword to Search in all the index
+	 * @return BarChart
+	 */
 	public BarChart<String,Integer> barchart(String search){
 		CategoryAxis xAxis = new CategoryAxis();
 		NumberAxis yAxis = new NumberAxis();
@@ -117,6 +153,12 @@ public class Model {
 		return BarchartBuilder;	
 	}
 	
+	
+	/**
+	 * Sort HashMap
+	 * @param str Sort the HashMap 
+	 * @return Sorted HashMap
+	 */
 	public Map<String, Integer> Sort(Map<String, Integer> str){
 		Map<String, Integer> sorted = str.entrySet()
 				  .stream()
@@ -126,32 +168,12 @@ public class Model {
 		return sorted;
 		
 	}
-
-	public BarChart<String,Integer> topbarChart(String search, ArrayList<String> keywordList, int times){
-		CategoryAxis xAxi = new CategoryAxis();
-		NumberAxis yAxi = new NumberAxis();
-		xAxi.setLabel("Movie Name");
-		yAxi.setLabel("No of Occurences");
-
-		BarChart<String,Integer> BarchartBuilder = new BarChart(xAxi,yAxi);
-		XYChart.Series<String, Integer> series = new XYChart.Series<>();
-		BarchartBuilder.setTitle("Keyword "+search+" Occurences");
-
-
-		for (int i = 0; i<times ; i++ ) {
-
-			Integer ld = data.get(keywordList.get(i).trim());
-			if (ld!=null) {
-				series.getData().add(new XYChart.Data(keywordList.get(i),ld));
-			}
-		}
-		BarchartBuilder.getData().add(series);
-
-		return BarchartBuilder;
-
-	}
-
 	
+	/**
+	 * Build Pie Chart
+	 * @param search Keyword to Search in all the index
+	 * @return PieChart
+	 */
 	public PieChart PieChart(String search) {
 		PieChart piChart = new PieChart();
 		ObservableList ListData = FXCollections.observableArrayList(); 

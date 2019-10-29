@@ -21,7 +21,7 @@ public class Controller {
      * Constructor with view, model and stage set for the java fx
      * 
      * @param view The View to be worked on for the model
-     * @param Mod The Model of the whole model view container
+     * @param mod The Model of the whole model view container
      * @param set The selected stage of the mvc 
      */
 	public Controller (View view, Model mod, Stage set) {
